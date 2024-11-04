@@ -1,0 +1,47 @@
+Bootstrap Template 3.7.4 für Zen Cart 1.5.7i deutsch
+
+Installation:
+
+Voraussetzungen:
+- Zen Cart 1.5.7i deutsch
+- PHP 8.0 bis 8.3
+
+Installieren Sie dieses Template erst in einem Testsystem und nicht direkt in Ihrem Liveshop!
+Dieses Template überschreibt derzeit keine Core-Dateien. 
+
+Sie sollten trotzdem immer eine Sicherungskopie der Datenbank und der Dateien Ihres Shops erstellen, bevor Sie Änderungen vornehmen.
+
+Backup gemacht?
+OK, dann installieren Sie das Template nun in Ihrem Testsystem
+
+
+1)
+Benennen Sie das DEINADMIN Unterverzeichnis im Ordner NEUE DATEIEN auf den Namen Ihres Adminverzeichnisses um.
+
+2)
+Laden Sie nun den gesamten Inhalt des Ordners NEUE DATEIEN in der vorgegebenen Struktur in Ihr Shopverzeichnis hoch, dabei werden keine bestehenden Dateien überschrieben.
+
+3)
+Loggen Sie sich in Ihre Zen Cart Administration ein und clicken Sie auf irgendeinen Menüpunkt, die Templatekonfiguration wird dann automatisch installiert.
+
+4)
+Gehen Sie zu Tools > Template Auswahl
+Gehen Sie auf Template ändern, wählen Sie das Template ZCA Bootstrap-4 aus und clicken auf Aktualisieren
+
+5)
+Gehen Sie zu Tools > Boxlayout und stellen Sie die Sideboxen so ein, wie Sie es haben wollen.
+
+6)
+Unter Konfiguration > Bootstrap Template Einstellungen können Sie diverse Dinge konfigurieren, alle Einstellungsmöglichkeiten sind dort erklärt.
+Falls Sie bereits das Modul Instant Search verwenden und das auch weiterverwenden wollen, aktivieren Sie die templateeigene Ajax Suche nicht.
+Nur eine der beiden Ajax Suchen sollte im Shop aktiv sein.
+
+7)
+Unter Tools > Bootstrap Template Farbkonfiguration können Sie die Farben der verschiedenen Seitenelemente anpassen.
+Hier können Sie auch eine Sicherung der Farbkonfiguration in einer .csv Datei machen.
+Diese Datei können Sie dort auch jederzeit wieder einspielen, um Ihre Änderungen rückgängig zu machen.
+Oder um Ihre endgültige Testshop Farbkonfiguration später in Ihrem Liveshop einzuspielen.
+
+8)
+Eine umfangreiche Dokumentation (english) dieses Templates finden Sie hier:
+https://github.com/lat9/ZCA-Bootstrap-Template/wiki

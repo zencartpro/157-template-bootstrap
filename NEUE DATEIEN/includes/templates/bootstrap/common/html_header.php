@@ -12,7 +12,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: html_header.php for Bootstrap Template 2024-11-01 07:22:39Z webchills $
+ * @version $Id: html_header.php for Bootstrap Template 2024-11-04 17:22:39Z webchills $
  */
 
 if (!defined('IS_ADMIN_FLAG')) {
@@ -154,11 +154,6 @@ foreach ($preloads as $load) {
 
 $zco_notifier->notify('NOTIFY_HTML_HEAD_CSS_BEGIN', $current_page_base);
 
-/**
- * Load all template-specific stylesheets, via the common CSS loader.
- */
-require $template->get_template_dir('html_header_css_loader.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/html_header_css_loader.php';
-
 /** CDN for jQuery core * */
 foreach ($preloads as $load) {
     if ($load['type'] === 'script') {
@@ -171,14 +166,9 @@ foreach ($preloads as $load) {
 }
 
 $zco_notifier->notify('NOTIFY_HTML_HEAD_JS_BEGIN', $current_page_base);
-
-/**
- * Load all template-specific jscript files, via the common jscript loader.
- */
-require $template->get_template_dir('html_header_js_loader.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/html_header_js_loader.php';
-  ?>
+?>
     
-   <?php
+<?php
 $manufacturers_id = (isset($_GET['manufacturers_id'])) ? $_GET['manufacturers_id'] : '';
 ?>
 <?php if (RSS_FEED_ENABLED == 'true'){ ?>

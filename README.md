@@ -1,7 +1,8 @@
 # 157-template-bootstrap
 Bootstrap Template für Zen Cart 1.5.7 deutsch
 
-Übersetzung/Anpassung des Bootstrap Templates von rbarbour/lat9/drbyte für die deutsche Zen Cart Version 1.5.7i
+Übersetzung/Anpassung des Bootstrap Templates von lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched 
+für die deutsche Zen Cart Version 1.5.7i
 
 Features:
 * Bootstrap 4 Framework

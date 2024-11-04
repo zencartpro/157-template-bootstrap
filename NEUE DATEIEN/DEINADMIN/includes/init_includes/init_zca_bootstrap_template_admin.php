@@ -2,12 +2,12 @@
 /**
  * Bootstrap Template for Zen Cart German 1.5.7i
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/webchills/drbyte/webchills 
+ * Copyright 2018- 2024 rbarbour/lat9/drbyte/webchills 
  * @copyright Copyright 2003-2024 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: init.zca_bootstrap_template_admin.php 2024-11-01 15:22:39Z webchills $
+ * @version $Id: init.zca_bootstrap_template_admin.php 2024-11-04 16:22:39Z webchills $
  */
 // -----
 // Configuration initialization for the ZCAdditions' bootstrap template.
@@ -31,9 +31,9 @@ if (zen_is_superuser()) {
     if ($configuration->EOF) {
         $db->Execute(
             "INSERT INTO " . TABLE_CONFIGURATION_GROUP . " 
-                (configuration_group_title, configuration_group_description, sort_order, visible) 
+                (configuration_group_title, configuration_group_description, language_id, sort_order, visible) 
              VALUES
-                ('$configurationGroupTitle', '$configurationGroupTitle', 1, 1)"
+                ('$configurationGroupTitle', '$configurationGroupTitle', 43, 1, 1)"
         );
         $cgi = $db->Insert_ID(); 
         $db->Execute("UPDATE " . TABLE_CONFIGURATION_GROUP . " SET sort_order = $cgi WHERE configuration_group_id = $cgi LIMIT 1");
@@ -96,7 +96,7 @@ if (zen_is_superuser()) {
 // where YT is the name of the template.  Use the PRESENCE of that file to identify a bootstrap template.
 //
 if ($current_page === (FILENAME_TEMPLATE_SELECT . '.php') && isset($_GET['action'], $_POST['ln']) && $_GET['action'] === 'save') {
-    if (file_exists(DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'english/extra_definitions/' . $_POST['ln'] . '/zca_bootstrap_id.php')) {
+    if (file_exists(DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'german/extra_definitions/' . $_POST['ln'] . '/zca_bootstrap_id.php')) {
         // -----
         // Finally, compare the Zen Cart built-in settings to see if they're different from the ZCA Bootstrap
         // recommendations.  If so, create a log file identifying what's different and let the current admin

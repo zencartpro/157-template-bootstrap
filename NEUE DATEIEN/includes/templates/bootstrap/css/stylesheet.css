@@ -25,6 +25,22 @@
 	font-size:10px;
 }
 
+.contentimage-right{
+	float:right;
+	width:200px;
+	height:200px;
+	margin:0 0 20px 30px;
+	border:10px solid #CCCCCC;
+}
+
+.contentimage-left{
+	float:left;
+	width:200px;
+	height:200px;
+	margin:20px 30px 20px 0;
+	border:10px solid #CCCCCC;
+}
+
 #loginSideBoxInputEmail{
 	width:95%;
 }
@@ -139,6 +155,29 @@ table.tabTable td {
   -webkit-column-count: 2;
   -moz-column-count:2;
   column-count: 2;
+}
+}
+
+@media (max-width: 767px){
+
+.contentimage-right{
+	float:none;
+	width:200px;
+	height:200px;
+	margin:0 auto;
+	border:10px solid #CCCCCC;
+	text-align:center;
+	clear:both;
+}
+
+.contentimage-left{
+	float:none;
+	width:200px;
+	height:200px;
+	margin:0 auto;
+	border:10px solid #CCCCCC;
+	text-align:center;
+	clear:both;
 }
 }
 

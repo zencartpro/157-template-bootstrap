@@ -2,7 +2,7 @@
 /**
  * Bootstrap Template for Zen Cart German 1.5.7i
  * Zen Cart German Specific
- * * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills
+ * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills 
  * Zen Cart German Specific (158 code in 157 / zencartpro adaptations)
  * Common Template
  *

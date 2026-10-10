@@ -4,6 +4,10 @@ Bootstrap Template für Zen Cart 1.5.7 deutsch
 Übersetzung/Anpassung des Bootstrap Templates von lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched 
 für die deutsche Zen Cart Version 1.5.7k
 
+Hinweis: 
+Freigegebene getestete Versionen für den Einsatz in Livesystemen ausschließlich unter Releases herunterladen:
+* https://github.com/zencartpro/157-template-bootstrap/releases
+
 Features:
 * Bootstrap 4 Framework
 * responsiv

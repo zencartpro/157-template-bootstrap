@@ -1,5 +1,5 @@
 #############################################################################################
-# Bootstrap Template 3.7.4 Uninstall - 2024-11-04 - webchills
+# Bootstrap Template 3.8.1 Uninstall - 2026-10-10 - webchills
 # NUR AUSFÜHREN FALLS SIE DAS TEMPLATE VOLLSTÄNDIG ENTFERNEN WOLLEN!!!
 #############################################################################################
 

@@ -1,13 +1,13 @@
-Bootstrap Template 3.7.4 für Zen Cart 1.5.7i deutsch
+Bootstrap Template 3.8.1 für Zen Cart 1.5.7k deutsch
 
 Installation:
 
 Voraussetzungen:
-- Zen Cart 1.5.7i deutsch
-- PHP 8.0 bis 8.3
+- Zen Cart 1.5.7k deutsch
+- PHP 8.4
 
 Installieren Sie dieses Template erst in einem Testsystem und nicht direkt in Ihrem Liveshop!
-Dieses Template überschreibt derzeit keine Core-Dateien. 
+Dieses Template überschreibt eine einzige Core-Datei. 
 
 Sie sollten trotzdem immer eine Sicherungskopie der Datenbank und der Dateien Ihres Shops erstellen, bevor Sie Änderungen vornehmen.
 
@@ -22,26 +22,32 @@ Benennen Sie das DEINADMIN Unterverzeichnis im Ordner NEUE DATEIEN auf den Namen
 Laden Sie nun den gesamten Inhalt des Ordners NEUE DATEIEN in der vorgegebenen Struktur in Ihr Shopverzeichnis hoch, dabei werden keine bestehenden Dateien überschrieben.
 
 3)
-Loggen Sie sich in Ihre Zen Cart Administration ein und clicken Sie auf irgendeinen Menüpunkt, die Templatekonfiguration wird dann automatisch installiert.
+Im Ordner GEAENDERTE DATEIEN finden Sie eine aktualisierte includes/init_includes/init_templates.php
+Es ist sehr unwahrscheinlich, dass Sie in dieser Datei in Ihrem Shop bereits Änderungen vorgenommen haben.
+Sie können also die Datei mit der neuen ersetzen.
+Wenn Sie sicher gehen wollen, dass Sie wirklich keine alten Änderungen verlieren würden, vergleichen Sie die Datei mit BeyondCompare oder WinMerge und nehmen die Änderungen manuell vor.
 
 4)
+Loggen Sie sich in Ihre Zen Cart Administration ein und clicken Sie auf irgendeinen Menüpunkt, die Templatekonfiguration wird dann automatisch installiert.
+
+5)
 Gehen Sie zu Tools > Template Auswahl
 Gehen Sie auf Template ändern, wählen Sie das Template ZCA Bootstrap-4 aus und clicken auf Aktualisieren
 
-5)
+6)
 Gehen Sie zu Tools > Boxlayout und stellen Sie die Sideboxen so ein, wie Sie es haben wollen.
 
-6)
+7)
 Unter Konfiguration > Bootstrap Template Einstellungen können Sie diverse Dinge konfigurieren, alle Einstellungsmöglichkeiten sind dort erklärt.
 Falls Sie bereits das Modul Instant Search verwenden und das auch weiterverwenden wollen, aktivieren Sie die templateeigene Ajax Suche nicht.
 Nur eine der beiden Ajax Suchen sollte im Shop aktiv sein.
 
-7)
+8)
 Unter Tools > Bootstrap Template Farbkonfiguration können Sie die Farben der verschiedenen Seitenelemente anpassen.
 Hier können Sie auch eine Sicherung der Farbkonfiguration in einer .csv Datei machen.
 Diese Datei können Sie dort auch jederzeit wieder einspielen, um Ihre Änderungen rückgängig zu machen.
 Oder um Ihre endgültige Testshop Farbkonfiguration später in Ihrem Liveshop einzuspielen.
 
-8)
+9)
 Eine umfangreiche Dokumentation (english) dieses Templates finden Sie hier:
 https://github.com/lat9/ZCA-Bootstrap-Template/wiki

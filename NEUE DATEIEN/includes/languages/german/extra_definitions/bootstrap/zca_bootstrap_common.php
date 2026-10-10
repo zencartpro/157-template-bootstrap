@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: zca_bootstrap_common.php 2026-10-10 15:14:16Z webchills $
+ * @version $Id: zca_bootstrap_common.php 2026-10-10 18:14:16Z webchills $
  */
 // -----
 // Part of the Bootstrap template, defining commonly-used phrases and phrases unique to the bootstrap template.
@@ -20,6 +20,7 @@ define('BOOTSTRAP_CURRENT_ADDRESS', ' (derzeit ausgewählt)');
 //
 define('BUTTON_BACK_TO_TOP_TITLE', 'nach oben');
 
+define('TEXT_SHOW', 'Filtere nach:');
 // -----
 // Used during checkout and on various address-rendering pages.
 //
@@ -52,6 +53,8 @@ define('TEXT_PRODUCT_RECORD_COMPANY', 'Plattenfirma: ');
 //
 define('TEXT_CART_MODAL_HELP', '[Hilfe (?)]');
 define('HEADING_TITLE_CART_MODAL', 'Besucherwarenkorb/Kundenwarenkorb');
+define('TEXT_CART_ARIA_HEADING_DELETE_COLUMN', 'Klicken Sie auf das Symbol in dieser Spalte, um den Artikel aus Ihrem Warenkorb zu entfernen.');
+define('TEXT_CART_ARIA_HEADING_UPDATE_COLUMN', 'Klicken Sie auf das Symbol in dieser Spalte, um die Menge in Ihrem Warenkorb anzupassen.');
 
 // -----
 // Used on various pages that display the cart's contents.
@@ -76,7 +79,7 @@ define('TABLE_HEADING_MANUFACTURER', 'Hersteller');
 define('TABLE_HEADING_PRICE', 'Preis');
 define('TABLE_HEADING_WEIGHT', 'Gewicht');
 define('TABLE_HEADING_BUY_NOW', 'Jetzt kaufen');
-define('TEXT_NO_PRODUCTS', 'In dieser Kategorie gibt es derzeit keine Artikel.');
+
 define('TEXT_NO_PRODUCTS2', 'Von diesem Hersteller gibt es derzeit keine Artikel.');
 
 // -----
@@ -107,18 +110,11 @@ define('TEXT_HEADER_ARIA_LABEL_NAVBAR', 'Navigationsleiste');
 define('TEXT_HEADER_ARIA_LABEL_LOGO', 'Website Logo');
 
 // -----
-// ARIA label text, used by /sideboxes/tpl_orders_history.php.
-//
-// NOTE: Not replicated in lang.zca_bootstrap_common.php, since this constant is
-// defined in lang.english.php for zc158 and later.
-//
-define('PAGE_ACCOUNT_HISTORY', 'Bestellhistorie');
 
-// -----
+
 // <h1> text for index pages where the 'normal' heading-text isn't provided by a
 // store ... for accessibility.
 //
-// Note: For zc200, this constant will be in /includes/languages/english/lang.index.php.
-//
+
 define('HEADING_TITLE_SCREENREADER', 'Weiterer Inhalt unten');
 define('TEXT_INFO_SORT_BY_RECOMMENDED', 'Empfohlen');

@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: zca_bootstrap_common.php 2026-10-10 15:14:16Z webchills $
+ * @version $Id: zca_bootstrap_common.php 2026-10-10 18:14:16Z webchills $
  */
 // -----
 // Part of the Bootstrap template, defining commonly-used phrases and phrases unique to the bootstrap template.
@@ -20,7 +20,8 @@ define('BOOTSTRAP_CURRENT_ADDRESS', ' (Currently Selected)');
 //
 define('BUTTON_BACK_TO_TOP_TITLE', 'Back to top');
 
-// -----
+define('TEXT_SHOW', 'Filter by:');
+
 // Used during checkout and on various address-rendering pages.
 //
 define('TEXT_SELECT_OTHER_PAYMENT_DESTINATION', 'Please select the preferred billing address if the invoice to this order is to be delivered elsewhere.');
@@ -52,6 +53,8 @@ define('TEXT_PRODUCT_RECORD_COMPANY', 'Record Company: ');
 //
 define('TEXT_CART_MODAL_HELP', '[help (?)]');
 define('HEADING_TITLE_CART_MODAL', 'Visitors Cart / Members Cart');
+define('TEXT_CART_ARIA_HEADING_DELETE_COLUMN', 'Click the icon in this column to delete it from your cart.');
+define('TEXT_CART_ARIA_HEADING_UPDATE_COLUMN', 'Click the icon in this column to update the quantity in your cart.');
 
 // -----
 // Used on various pages that display the cart's contents.
@@ -76,7 +79,7 @@ define('TABLE_HEADING_MANUFACTURER', 'Manufacturer');
 define('TABLE_HEADING_PRICE', 'Price');
 define('TABLE_HEADING_WEIGHT', 'Weight');
 define('TABLE_HEADING_BUY_NOW', 'Buy Now');
-define('TEXT_NO_PRODUCTS', 'There are no products to list in this category.');
+
 define('TEXT_NO_PRODUCTS2', 'There is no product available from this manufacturer.');
 
 // -----
@@ -107,18 +110,8 @@ define('TEXT_HEADER_ARIA_LABEL_NAVBAR', 'Navigation Bar');
 define('TEXT_HEADER_ARIA_LABEL_LOGO', 'Site Logo');
 
 // -----
-// ARIA label text, used by /sideboxes/tpl_orders_history.php.
-//
-// NOTE: Not replicated in lang.zca_bootstrap_common.php, since this constant is
-// defined in lang.english.php for zc158 and later.
-//
-define('PAGE_ACCOUNT_HISTORY', 'Order History');
-
-// -----
-// <h1> text for index pages where the 'normal' heading-text isn't provided by a
+// <h1> text for index pages where the 'normal' heading-text isn't used by a
 // store ... for accessibility.
-//
-// Note: For zc200, this constant will be in /includes/languages/english/lang.index.php.
 //
 define('HEADING_TITLE_SCREENREADER', 'See Additional Content Below');
 define('TEXT_INFO_SORT_BY_RECOMMENDED', 'Recommended');

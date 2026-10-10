@@ -121,3 +121,4 @@ define('PAGE_ACCOUNT_HISTORY', 'Bestellhistorie');
 // Note: For zc200, this constant will be in /includes/languages/english/lang.index.php.
 //
 define('HEADING_TITLE_SCREENREADER', 'Weiterer Inhalt unten');
+define('TEXT_INFO_SORT_BY_RECOMMENDED', 'Empfohlen');

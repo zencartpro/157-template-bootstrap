@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_ajax_search.php 2026-10-10 15:22:39Z webchills $
+ * @version $Id: tpl_ajax_search.php 2026-10-10 19:22:39Z webchills $
  */
 // -----
 // Part of the Bootstrap template for Zen Cart.  Included by /includes/templates/bootstrap/common/tpl_main_page.php.
@@ -27,7 +27,7 @@ if ($tplSetting->BS4_AJAX_SEARCH_ENABLE === 'true') {
                         <form class="search-form">
                             <label for="search-input"><?= BUTTON_SEARCH_ALT ?>:</label>
                             <input type="text" id="search-input" class="form-control" placeholder="<?= TEXT_AJAX_SEARCH_PLACEHOLDER ?>">
-                            <input id="search-page" type="hidden" value="<?= zen_href_link(FILENAME_SEARCH_RESULT, $ajax_search_parameter) ?>">
+                            <input id="search-page" type="hidden" value="<?= zen_href_link(FILENAME_ADVANCED_SEARCH_RESULT, $ajax_search_parameter) ?>">
                         </form>
                     </div>
                     <div id="search-content" class="row"></div>

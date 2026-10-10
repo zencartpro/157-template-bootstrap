@@ -41,6 +41,7 @@ Gehen Sie zu Tools > Boxlayout und stellen Sie die Sideboxen so ein, wie Sie es 
 Unter Konfiguration > Bootstrap Template Einstellungen können Sie diverse Dinge konfigurieren, alle Einstellungsmöglichkeiten sind dort erklärt.
 Falls Sie bereits das Modul Instant Search verwenden und das auch weiterverwenden wollen, aktivieren Sie die templateeigene Ajax Suche nicht.
 Nur eine der beiden Ajax Suchen sollte im Shop aktiv sein.
+Um das Suchfeld im Header zu aktivieren, stellen Sie unter Tools > Boxlayout die search_header.php auf EIN und einzelne Spalte auf EIN
 
 8)
 Unter Tools > Bootstrap Template Farbkonfiguration können Sie die Farben der verschiedenen Seitenelemente anpassen.
@@ -49,5 +50,10 @@ Diese Datei können Sie dort auch jederzeit wieder einspielen, um Ihre Änderung
 Oder um Ihre endgültige Testshop Farbkonfiguration später in Ihrem Liveshop einzuspielen.
 
 9)
-Eine umfangreiche Dokumentation (english) dieses Templates finden Sie hier:
+Das Template hat einige Beispielinhaltsseiten mitgebracht für AGB, usw. 
+Das sind Beispiele für die Integration von Bildern auf diesen Seiten, die netweder links oder rechts am Text floaten.
+Ersetzen Sie die Beispieltexte mit denen aus Ihren bisherigen Seiten aus includes/languages/german/html_includes/DEINTEMPLATE
+
+10)
+Eine umfangreiche Dokumentation (english) dieses Templates und seiner Einstellungsmöglichkeiten finden Sie hier:
 https://github.com/lat9/ZCA-Bootstrap-Template/wiki

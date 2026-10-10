@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_index_product_list.php 2024-10-26 17:22:39Z webchills $
+ * @version $Id: tpl_index_product_list.php 2026-10-10 17:22:39Z webchills $
  */
 ?>
 <div id="indexProductList" class="centerColumn">
@@ -15,12 +15,12 @@
 
     <div id="indexProductList-cat-wrap">
 <?php
-if (PRODUCT_LIST_CATEGORIES_IMAGE_STATUS === 'true') {
+if ($tplSetting->PRODUCT_LIST_CATEGORIES_IMAGE_STATUS === 'true') {
 // categories_image
     if ($categories_image = zen_get_categories_image($current_category_id)) {
 ?>
         <div id="indexProductList-categoryImage" class="categoryImage">
-            <?= zen_image(DIR_WS_IMAGES . $categories_image, '', CATEGORY_ICON_IMAGE_WIDTH, CATEGORY_ICON_IMAGE_HEIGHT) ?>
+            <?= zen_image(DIR_WS_IMAGES . $categories_image, '', $tplSetting->CATEGORY_ICON_IMAGE_WIDTH, $tplSetting->CATEGORY_ICON_IMAGE_HEIGHT) ?>
         </div>
 <?php
     }
@@ -44,7 +44,7 @@ if ($current_categories_description != '') {
 $check_for_alpha = $listing_sql;
 $check_for_alpha = $db->Execute($check_for_alpha);
 
-if ($do_filter_list || isset($_GET['alpha_filter_id']) || (PRODUCT_LIST_ALPHA_SORTER === 'true' && !$check_for_alpha->EOF)) {
+if ($do_filter_list || isset($_GET['alpha_filter_id']) || ($tplSetting->PRODUCT_LIST_ALPHA_SORTER === 'true' && !$check_for_alpha->EOF)) {
     echo
         zen_draw_form('filter', zen_href_link(FILENAME_DEFAULT), 'get', 'class="form-inline"') .
         '<label class="inputLabel">' . TEXT_SHOW . '</label>' .
@@ -82,48 +82,42 @@ if ($do_filter_list || isset($_GET['alpha_filter_id']) || (PRODUCT_LIST_ALPHA_SO
     // draw disp_order
     if (!empty($_GET['disp_order'])) {
         echo zen_draw_hidden_field('disp_order', $_GET['disp_order']);
+    } else {
+        unset($_GET['disp_order']);
     }
 
     // draw sort
-    if (!empty($_GET['sort'])) {
+    if (!empty($_GET['sort']) && $_GET['sort'] !== '20a') {
         echo zen_draw_hidden_field('sort', $_GET['sort']);
+    } else {
+        unset($_GET['sort']);
     }
 
     // draw filter_id (ie: category/mfg depending on $options)
     if ($do_filter_list) {
 ?>
-        <div class="col">
-            <?= zen_draw_pull_down_menu('filter_id', $options, (isset($_GET['filter_id']) ? $_GET['filter_id'] : ''), 'aria-label="' . TEXT_SHOW . '" onchange="this.form.submit()"') ?>
+        <div class="col-sm-4">
+            <?= zen_draw_pull_down_menu('filter_id', $options, $_GET['filter_id'] ?? '', 'aria-label="' . TEXT_SHOW . '" onchange="this.form.submit()"') ?>
         </div>
 <?php
     }
 ?>
-        <div class="col">
+        <div class="col-sm-4">
 <?php
     // draw alpha sorter
     require DIR_WS_MODULES . zen_get_module_directory(FILENAME_PRODUCT_LISTING_ALPHA_SORTER);
 ?>
         </div>
-    <?= '</form>'; ?>
+    <?= '</form>' ?>
 <?php
 }
-
-// -----
-// Zen Cart versions prior to 2.0.0 don't include the display-order sort, so neither
-// does this template when run on an earlier version.
-//
-if (PROJECT_VERSION_MAJOR > 1) {
 ?>
-        <div class="col">
+        <div class="col-sm-4">
 <?php
-    require $template->get_template_dir('/tpl_modules_listing_display_order.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_modules_listing_display_order.php';
+require $template->get_template_dir('/tpl_modules_listing_display_order.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_modules_listing_display_order.php';
 ?>
         </div>
-<?php
-}
-?>
     </div>
-    <div class="p-3"></div>
 <?php
 /**
  * require the code for listing products

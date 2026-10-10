@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_best_sellers.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_best_sellers.php 2026-10-10 15:22:39Z webchills $
  */
 $is_carousel = in_array('best_sellers', $sidebox_carousels);
 
@@ -21,7 +21,7 @@ if ($is_carousel === false) {
         $content .=
             '<a class="list-group-item list-group-item-action" href="' . zen_href_link(zen_get_info_page($bestsellers_list[$i]['id']), 'products_id=' . $bestsellers_list[$i]['id']) . '">' .
                 $i . '. ' .
-                zen_trunc_string($bestsellers_list[$i]['name'], BEST_SELLERS_TRUNCATE, BEST_SELLERS_TRUNCATE_MORE) .
+                zen_trunc_string($bestsellers_list[$i]['name'], $tplSetting->BEST_SELLERS_TRUNCATE, $tplSetting->BEST_SELLERS_TRUNCATE_MORE) .
             '</a>';
     }
 

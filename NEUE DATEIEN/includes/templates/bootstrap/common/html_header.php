@@ -1,18 +1,18 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills 
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
  * Zen Cart German Specific (158 code in 157 / zencartpro adaptations)
  * Common Template
  *
  * outputs the html header. i,e, everything that comes before the \</head\> tag
  * 
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: html_header.php for Bootstrap Template 2024-11-04 17:22:39Z webchills $
+ * @version $Id: html_header.php for Bootstrap Template 2026-10-10 08:47:39Z webchills $
  */
 
 if (!defined('IS_ADMIN_FLAG')) {
@@ -23,6 +23,7 @@ $zco_notifier->notify('NOTIFY_HTML_HEAD_START', $current_page_base, $template_di
 
 // Prevent clickjacking risks by setting X-Frame-Options:SAMEORIGIN
 header('X-Frame-Options:SAMEORIGIN');
+header('X-Content-Type-Options: nosniff');
 
 /**
  * load the module for generating page meta-tags
@@ -83,14 +84,36 @@ if (!class_exists('MobileDetect')) {
 ?>
 
 <!DOCTYPE html>
-<html <?php echo HTML_PARAMS; ?>>
+<html <?= HTML_PARAMS ?>>
   <head>
-    <meta charset="<?php echo CHARSET; ?>">
+    <meta charset="<?= CHARSET ?>">
 <?php
 // -----
 // Provide a notification that the <head> tag has been rendered for the current page.
 //
 $zco_notifier->notify('NOTIFY_HTML_HEAD_TAG_START', $current_page_base);
+?>
+    <title><?= META_TAG_TITLE ?></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
+    <meta name="keywords" content="<?= META_TAG_KEYWORDS ?>">
+    <meta name="description" content="<?= META_TAG_DESCRIPTION ?>">
+    <meta name="author" content="<?= zen_config('STORE_NAME') ?>">
+    <meta name="generator" content="Zen-Cart - deutsche Version, https://www.zen-cart-pro.at">
+<?php
+if (defined('ROBOTS_PAGES_TO_SKIP') && in_array($current_page_base, explode(',', constant('ROBOTS_PAGES_TO_SKIP'))) || $current_page_base === 'down_for_maintenance' || $robotsNoIndex === true) {
+?>
+    <meta name="robots" content="noindex, nofollow">
+<?php
+}
+?>
+    <base href="<?= (($request_type === 'SSL') ? HTTPS_SERVER . DIR_WS_HTTPS_CATALOG : HTTP_SERVER . DIR_WS_CATALOG ) ?>">
+<?php
+if (defined('FAVICON')) {
+?>
+    <link href="<?= FAVICON ?>" type="image/x-icon" rel="icon">
+    <link href="<?= FAVICON ?>" type="image/x-icon" rel="shortcut icon">
+<?php
+} //endif FAVICON
 
 // -----
 // Provide an easy way for a site to disable the preload, if they want to ensure
@@ -105,30 +128,16 @@ if (empty($zca_no_preloading)) {
 <?php
     }
 }
-?>
-    <title><?php echo META_TAG_TITLE; ?></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no">
-    <meta name="keywords" content="<?php echo META_TAG_KEYWORDS; ?>">
-    <meta name="description" content="<?php echo META_TAG_DESCRIPTION; ?>">
-    <meta name="language" content="<?php echo META_TAG_LANGUAGE; ?>" />
-    <meta name="author" content="<?php echo STORE_NAME ?>">
-    <meta name="generator" content="Zen-Cart - deutsche Version, https://www.zen-cart-pro.at">
-    <?php if (defined('ROBOTS_PAGES_TO_SKIP') && in_array($current_page_base, explode(",", constant('ROBOTS_PAGES_TO_SKIP'))) || $current_page_base == 'down_for_maintenance' || $robotsNoIndex === true) { ?>
-      <meta name="robots" content="noindex, nofollow">
-    <?php } ?>
-    <?php if (defined('FAVICON')) { ?>
-      <link href="<?php echo FAVICON; ?>" type="image/x-icon" rel="icon">
-      <link href="<?php echo FAVICON; ?>" type="image/x-icon" rel="shortcut icon">
-    <?php } //endif FAVICON  ?>
 
-    <base href="<?php echo (($request_type == 'SSL') ? HTTPS_SERVER . DIR_WS_HTTPS_CATALOG : HTTP_SERVER . DIR_WS_CATALOG ); ?>">
-    <?php if (isset($canonicalLink) && $canonicalLink != '') { ?>
-      <link href="<?php echo $canonicalLink; ?>" rel="canonical">
-    <?php } ?>
-    <?php
-    // BOF hreflang for multilingual sites
+if (isset($canonicalLink) && $canonicalLink != '') {
+?>
+    <link href="<?= $canonicalLink ?>" rel="canonical">
+<?php
+}
+
+// BOF hreflang for multilingual sites
 if (!isset($lng) || !is_object($lng)) {
-    $lng = new language;
+    $lng = new language();
 }
 
 if (count($lng->catalog_languages) > 1) {
@@ -154,6 +163,10 @@ foreach ($preloads as $load) {
 
 $zco_notifier->notify('NOTIFY_HTML_HEAD_CSS_BEGIN', $current_page_base);
 
+/**
+ * Load all template-specific stylesheets, via the common CSS loader.
+ */
+require $template->get_template_dir('html_header_css_loader.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/html_header_css_loader.php';
 /** CDN for jQuery core * */
 foreach ($preloads as $load) {
     if ($load['type'] === 'script') {
@@ -168,53 +181,19 @@ foreach ($preloads as $load) {
 $zco_notifier->notify('NOTIFY_HTML_HEAD_JS_BEGIN', $current_page_base);
 ?>
     
-<?php
-$manufacturers_id = (isset($_GET['manufacturers_id'])) ? $_GET['manufacturers_id'] : '';
-?>
+
 <?php if (RSS_FEED_ENABLED == 'true'){ ?>
 <?php echo rss_feed_link_alternate();?>
 <?php } ?>
-
 <?php
 /**
-* load the loader files
-*/
-$RC_loader_files = array();
-if($RI_CJLoader->get('status') && (!isset($Ajax) || !$Ajax->status())){
-    $RI_CJLoader->autoloadLoaders();
-    $RI_CJLoader->loadCssJsFiles();
-    $RC_loader_files = $RI_CJLoader->header();
-
-    if (!empty($RC_loader_files['meta']))
-    foreach($RC_loader_files['meta'] as $file) {
-        include($file['src']);
-        echo "\n";
-    }
-
-    foreach($RC_loader_files['css'] as $file){
-        if (!$file['defer']) {
-          if($file['include']) {
-              include($file['src']);
-          } else if (!$RI_CJLoader->get('minify_css')) {
-              
-              echo '<link rel="stylesheet" type="text/css" href="'.$file['src'] .'" />'."\n";
-          } else {
-             
-              echo '<link rel="stylesheet" type="text/css" href="extras/min/?f='.$file['src'].'&'.$RI_CJLoader->get('minify_time').'" />'."\n";
-          }
-        }
-        else {
-          if (!$RI_CJLoader->get('minify_css') || $file['external']) {
-            echo '<noscript><link rel="stylesheet" type="text/css" href="'.$file['src'] .'" /></noscript>'."\n";
-          } else {
-            echo '<noscript><link rel="stylesheet" type="text/css" href="extras/min/?f='.$file['src'].'&'.$RI_CJLoader->get('minify_time').'" /></noscript>'."\n";
-          }
-        }
-    }
-}
+ * Load all template-specific jscript files, via the common jscript loader.
+ */
+require $template->get_template_dir('html_header_js_loader.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/html_header_js_loader.php';
 ?>
 
   <?php require($template->get_template_dir('super_data_head.php',DIR_WS_TEMPLATE, $current_page_base,'templates'). '/super_data_head.php'); ?>
+  <link rel="stylesheet" href="extras/fontawesome/7.2.0/css/all.css" />
   <?php
   $zco_notifier->notify('NOTIFY_HTML_HEAD_END', $current_page_base);
   ?>

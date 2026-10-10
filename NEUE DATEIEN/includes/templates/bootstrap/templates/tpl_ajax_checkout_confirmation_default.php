@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_ajax_checkout_confirmation_default.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_ajax_checkout_confirmation_default.php 2026-10-10 15:22:39Z webchills $
  */
 ?>
 <div id="checkoutConfirmationDefault" class="centerColumn">
@@ -138,7 +138,7 @@ if ($_SESSION['sendto'] != false) {
                 <?= HEADING_ORDER_COMMENTS ?>
             </h4>
             <div id="orderComment-card-body" class="card-body p-3">
-                <?= (empty($order->info['comments']) ? NO_COMMENTS_TEXT : nl2br(zen_output_string_protected($order->info['comments'])) . zen_draw_hidden_field('comments', $order->info['comments'])) ?>
+                <?= (empty($order->info['comments']) ? NO_COMMENTS_TEXT : nl2br(zen_output_string_protected($order->info['comments']), false) . zen_draw_hidden_field('comments', $order->info['comments'])) ?>
 
                 <div id="orderComment-btn-toolbar" class="btn-toolbar justify-content-end mt-3" role="toolbar">
                     <?= zca_button_link(zen_href_link(FILENAME_CHECKOUT_PAYMENT, '', 'SSL'), BUTTON_EDIT_SMALL_ALT, 'small_edit') ?>
@@ -239,7 +239,7 @@ for ($i = 0, $n = count($order->products); $i < $n; $i++) {
 <?php
 }  // end for loopthru all products
 
-if (MODULE_ORDER_TOTAL_INSTALLED) {
+if (zen_config('MODULE_ORDER_TOTAL_INSTALLED')) {
     $_SESSION['zca_bootstrap_ot_colspan'] = ($tax_column_present === true) ? '3' : '2';
     $order_totals = $order_total_modules->process();
     $order_total_modules->output();
@@ -284,7 +284,7 @@ $(document).ready(function () {
             }
         }
     }
-    if (isset($processButtonOptions['extraFields']) && count($processButtonOptions['extraFields'])> 0 ) {
+    if (count($processButtonOptions['extraFields'] ?? []) > 0 ) {
         foreach ($processButtonOptions['extraFields'] as $fieldName => $fieldValue) {
            echo zen_draw_hidden_field($fieldName, $fieldValue);
         }

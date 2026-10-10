@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
- * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills
- * @copyright Copyright 2003-2024 Zen Cart Development Team
- * Zen Cart German Version - www.zen-cart-pro.at
+ * more_information sidebox - displays list of links to additional pages on the site.  Must separately build those pages' content.
+ *
+ * BOOTSTRAP v3.8.1
+ *
+ * @copyright Copyright 2003-2020 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
- * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: more_information.php 2024-10-26 15:14:16Z webchills $
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: DrByte 2019 Jul 24 Modified in v1.5.7 $
  */
 // -----
 // Enabling this sidebox's information to also be used by the mobile-menu.  If the variable
@@ -23,13 +23,13 @@ $more_information_classes = (!empty($more_information_sidebox_class)) ? $more_in
 $more_information = [];
 
 // test if links should display
-if (DEFINE_PAGE_2_STATUS <= 1) {
+if ($tplSetting->DEFINE_PAGE_2_STATUS <= 1) {
     $more_information[] = '<a class="' . $more_information_classes . '" href="' . zen_href_link(FILENAME_PAGE_2) . '">' . BOX_INFORMATION_PAGE_2 . '</a>';
 }
-if (DEFINE_PAGE_3_STATUS <= 1) {
+if ($tplSetting->DEFINE_PAGE_3_STATUS <= 1) {
     $more_information[] = '<a class="' . $more_information_classes . '" href="' . zen_href_link(FILENAME_PAGE_3) . '">' . BOX_INFORMATION_PAGE_3 . '</a>';
 }
-if (DEFINE_PAGE_4_STATUS <= 1) {
+if ($tplSetting->DEFINE_PAGE_4_STATUS <= 1) {
     $more_information[] = '<a class="' . $more_information_classes . '" href="' . zen_href_link(FILENAME_PAGE_4) . '">' . BOX_INFORMATION_PAGE_4 . '</a>';
 }
 
@@ -41,6 +41,7 @@ if (DEFINE_PAGE_4_STATUS <= 1) {
 // ... or create an observer-class file that monitors the following notification.
 //
 $zco_notifier->notify('NOTIFY_MORE_INFORMATION_SIDEBOX_ADDITIONS', [], $more_information);
+
 // only show if links are active
 if (count($more_information) > 0 && empty($more_information_sidebox_class)) {
     require $template->get_template_dir('tpl_more_information.php', DIR_WS_TEMPLATE, $current_page_base, 'sideboxes') . '/tpl_more_information.php';

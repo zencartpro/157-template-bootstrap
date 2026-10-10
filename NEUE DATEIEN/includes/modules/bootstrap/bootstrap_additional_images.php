@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: bootstrap_additional_images.php 2024-10-26 15:14:16Z webchills $
+ * @version $Id: bootstrap_additional_images.php 2026-10-10 15:14:16Z webchills $
  */
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
@@ -29,8 +29,7 @@ if ($products_image !== '' && $flag_show_product_info_additional_images !== '0')
     // additional images' "mode" setting indicates that we're running in 'strict' mode,
     // in which case the intervening '_' is also needed.
     //
-    zen_define_default('ADDITIONAL_IMAGES_MODE', 'legacy');
-    if (ADDITIONAL_IMAGES_MODE === 'legacy' && $products_image_directory === '.') {
+    if ($tplSetting->ADDITIONAL_IMAGES_MODE === 'legacy' && $products_image_directory === '.') {
         $products_image_base .= '?';
         $products_image_directory = '';
     } else {
@@ -59,7 +58,7 @@ if ($num_images !== 0) {
     $slideNumber = 1;
     foreach ($images_array as $base_image) {
         $thumb = '<a id="carousel-selector-' . $slideNumber . '" data-slide-to="' . $slideNumber . '" data-target="#productImagesCarousel">';
-        $thumb .= zen_image($base_image, $products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT);
+        $thumb .= zen_image($base_image, $products_name, $tplSetting->SMALL_IMAGE_WIDTH, $tplSetting->SMALL_IMAGE_HEIGHT);
         $thumb .= '</a>';
         $slideNumber++;
 

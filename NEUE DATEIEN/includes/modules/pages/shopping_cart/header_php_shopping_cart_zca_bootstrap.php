@@ -6,6 +6,7 @@
 // That regex "magic" says find the first '<input type="image"{...}/>', replace it with the
 // button and then copy anything else (like the 'hidden' input that follows).
 //
+// BOOTSTRAP 3.6.1.
 //
 if (!(function_exists('zca_bootstrap_active') && zca_bootstrap_active())) {
     return;

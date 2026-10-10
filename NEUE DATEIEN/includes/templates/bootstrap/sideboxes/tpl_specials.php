@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_specials.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_specials.php 2026-10-10 15:22:39Z webchills $
  */
 $is_carousel = in_array('specials', $sidebox_carousels);
 
@@ -36,7 +36,7 @@ while (!$random_specials_sidebox_product->EOF) {
         $carousel_start .
         '<div class="card mb-3 p-3 sideBoxContentItem">' .
             '<a href="' . $specials_link . '" title="' . zen_output_string_protected($specials_name) . '">' .
-                zen_image(DIR_WS_IMAGES . $current_special['products_image'], $specials_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT) .
+                zen_image(DIR_WS_IMAGES . $current_special['products_image'], $specials_name, $tplSetting->SMALL_IMAGE_WIDTH, $tplSetting->SMALL_IMAGE_HEIGHT) .
                 '<br>' .
                 $specials_name .
             '</a>' .

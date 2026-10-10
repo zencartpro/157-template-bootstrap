@@ -1,14 +1,26 @@
 <?php
+// -----
+// Header search, modified for the Bootstrap-4 template's AJAX search extension.
+//
+// Bootstrap v3.8.1
+//
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
- * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills
- * @copyright Copyright 2003-2024 Zen Cart Development Team
- * Zen Cart German Version - www.zen-cart-pro.at
+ * search_header ("sidebox") - this is a search field that appears in the navigation header
+ * (it's not really a "sidebox" per se).
+ *
+ * @package templateSystem
+ * @copyright Copyright 2003-2019 Zen Cart Development Team
  * @copyright Portions Copyright 2003 osCommerce
- * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: search_header.php 2024-10-26 15:14:16Z webchills $
+ * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
+ * @version $Id: mc12345678 2019 Jan 28 Modified in v1.5.6b $
  */
+// -----
+// Don't render the header-based search form if we're already on the 'search' page.
+//
+if ($current_page_base === FILENAME_ADVANCED_SEARCH) {
+    return;
+}
+
 $search_header_status = $db->Execute(
     "SELECT layout_box_name
        FROM " . TABLE_LAYOUT_BOXES . "
@@ -19,7 +31,7 @@ $search_header_status = $db->Execute(
 );
 
 if (!$search_header_status->EOF) {
-    if (defined('BS4_AJAX_SEARCH_ENABLE') && BS4_AJAX_SEARCH_ENABLE === 'true') {
+    if ($tplSetting->BS4_AJAX_SEARCH_ENABLE === 'true') {
         require $template->get_template_dir('tpl_ajax_search_header.php', DIR_WS_TEMPLATE, $current_page_base, 'sideboxes') . '/tpl_ajax_search_header.php';
     } else {
         require $template->get_template_dir('tpl_search_header.php', DIR_WS_TEMPLATE, $current_page_base, 'sideboxes') . '/tpl_search_header.php';

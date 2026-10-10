@@ -1,7 +1,7 @@
 /**
  * Main Template CSS Stylesheet
  * 
- * BOOTSTRAP v3.6.1
+ * BOOTSTRAP v3.8.1
  *
  */
 .clearBoth {
@@ -79,6 +79,15 @@ img {
     opacity: 1;
     z-index: 1;
 }
+input[name="password"],
+.btn,
+.pagination {
+    position: relative;
+    z-index: 2;
+}
+.carousel-control-next {
+    z-index: 2;
+}
 
 /* set height of scrollable area in mobile menu */
 div#navbarSupportedContent {
@@ -121,6 +130,13 @@ table.tabTable td {
     border: 0.125rem solid #007faf;
 }
 
+/* Bootstrap 5 "helper" classes */
+.opacity-0   { opacity: 0; }
+.opacity-25  { opacity: 0.25; }
+.opacity-50  { opacity: 0.5; }
+.opacity-75  { opacity: 0.75; }
+.opacity-100 { opacity: 1; }
+.z-0 { z-index: 0; }
 /* These CSS media queries control how many columns of cards display on the login, checkout_shipping, checkout_payment & checkout_confirmation pages */
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
@@ -156,6 +172,63 @@ table.tabTable td {
   -moz-column-count:2;
   column-count: 2;
 }
+}
+
+/* Merging back from version-specific stylesheets */
+.btn.button_add_selected {
+    position: fixed;
+    bottom: 7.5rem;
+    z-index: 100;
+}
+#shippingEstimatorContent,
+#shoppingcartBody .qtyCell input {
+    width: fit-content;
+}
+a {
+    text-decoration: underline;
+}
+.btn.button_add_selected {
+    position: static;
+    z-index: auto;
+}
+.btn.button_add_selected.bs4-button-float.always {
+    position: fixed;
+    bottom: 7.5rem;
+    z-index: 100;
+}
+@media (max-width: 577px) { 
+    .btn.button_add_selected.bs4-button-float.sm-only {
+        position: fixed;
+        bottom: 5rem;
+        z-index: 100;
+        left: 2vw;
+    }
+    .btn.button_add_selected.bs4-button-hide-sm {
+        display: none;
+    }
+}
+#checkoutPayment label.inputLabelPayment+input[type="checkbox"],
+#checkoutPayment label.inputLabel+input[type="checkbox"] {
+    opacity: 100%;
+    position: initial;
+    margin-left: .5rem;
+}
+.card-body {
+    border-radius: inherit;
+}
+.card-header+.card-body {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+.leftBoxCard,
+.rightBoxCard {
+    overflow: hidden;
+}
+.pl-dp {
+    min-width: 7rem;
+}
+.qmax > br {
+    display: none;
 }
 
 @media (max-width: 767px){

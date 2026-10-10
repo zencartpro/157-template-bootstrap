@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_account_history_info_default.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_account_history_info_default.php 2026-10-10 15:22:39Z webchills $
  */
 ?>
 <div id="accountHistoryInfoDefault" class="centerColumn">
@@ -83,7 +83,7 @@ foreach ($order->products as $product) {
 <?php
         foreach ($product['attributes'] as $attribute) {
 ?>
-                                    <li><?= $attribute['option'] . TEXT_OPTION_DIVIDER . nl2br(zen_output_string_protected($attribute['value'])) ?></li>
+                                    <li><?= $attribute['option'] . TEXT_OPTION_DIVIDER . nl2br(zen_output_string_protected($attribute['value']), false) ?></li>
 <?php
         }
 ?>
@@ -139,7 +139,7 @@ foreach ($order->totals as $total) {
 /**
  * Used to display any downloads associated with the cutomers account
  */
-if (DOWNLOAD_ENABLED === 'true') {
+if (zen_config('DOWNLOAD_ENABLED') === 'true') {
     require $template->get_template_dir('tpl_modules_downloads.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_modules_downloads.php';
 }
 
@@ -204,7 +204,7 @@ if (!empty($statusArray)) {
                                 <td class="commentsCell">
 <?php 
         if (!empty($statuses['comments'])) {
-            echo nl2br(zen_output_string($statuses['comments'], false, $protected));
+            echo nl2br(zen_output_string($statuses['comments'], false, $protected), false);
         }
 ?>
                                 </td> 

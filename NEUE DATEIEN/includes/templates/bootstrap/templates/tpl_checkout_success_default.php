@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_checkout_success_default.php 2024-10-26 17:22:39Z webchills $
+ * @version $Id: tpl_checkout_success_default.php 2026-10-10 17:22:39Z webchills $
  */
 ?>
 <div id="checkoutSuccessDefault" class="centerColumn">
@@ -15,11 +15,9 @@
         <div class="progress-bar" role="progressbar" style="width: 100%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">100%</div>
     </div>
 
-    <h1 id="checkoutSuccessDefault-pageHeading" class="pageHeading">
-        <?= HEADING_TITLE ?>
-    </h1>
+    <h1 id="checkoutSuccessDefault-pageHeading" class="pageHeading"><?= HEADING_TITLE ?></h1>
 <?php
-if (DEFINE_CHECKOUT_SUCCESS_STATUS >= 1 && DEFINE_CHECKOUT_SUCCESS_STATUS <= 2) {
+if (in_array($tplSetting->DEFINE_CHECKOUT_SUCCESS_STATUS, ['1', '2'], true)) {
 ?>
     <div id="checkoutSuccessDefault-defineContent" class="defineContent">
 <?php
@@ -35,7 +33,7 @@ if (DEFINE_CHECKOUT_SUCCESS_STATUS >= 1 && DEFINE_CHECKOUT_SUCCESS_STATUS <= 2) 
 
 <!-- bof payment-method-alerts -->
 <?php
-if (isset($additional_payment_messages) && $additional_payment_messages !== '') {
+if (($additional_payment_messages ?? '') !== '') {
 ?>
     <div id="checkoutSuccessDefault-content" class="content">
         <?= $additional_payment_messages ?>
@@ -108,7 +106,7 @@ if ($customer_has_gv_balance ) {
  * The following creates a list of checkboxes for the customer to select if they wish to be included in product-notification
  * announcements related to products they've just purchased.
  **/
-if ($flag_show_products_notification == true) {
+if ($flag_show_products_notification === true) {
 ?>
 <!--bof product notifications card-->
     <div id="productNotifications-card" class="card mb-3">
@@ -116,7 +114,7 @@ if ($flag_show_products_notification == true) {
             <?= TEXT_NOTIFY_PRODUCTS ?>
         </h4>
         <div id="productNotifications-card-body" class="card-body p-3">
-            <?= zen_draw_form('order', zen_href_link(FILENAME_CHECKOUT_SUCCESS, 'action=update', 'SSL')) ?>
+            <?= zen_draw_form('order', zen_href_link(FILENAME_ACCOUNT_NOTIFICATIONS, 'action=notify', 'SSL')) ?>
 <?php
     foreach ($notificationsArray as $notifications) {
 ?>

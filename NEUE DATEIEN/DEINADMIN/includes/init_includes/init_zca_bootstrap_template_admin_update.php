@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: init.zca_bootstrap_template_update.php 2024-11-04 15:22:39Z webchills $
+ * @version $Id: init.zca_bootstrap_template_update.php 2026-10-10 15:22:39Z webchills $
  */
 // -----
 // Configuration update for the ZCAdditions' bootstrap template.  Required by
@@ -16,15 +16,16 @@
 // The $cgi value contains the configuration_group_id associated with the template's configuration.
 // settings.
 //
-// Bootstrap v3.7.0
+// Bootstrap v3.8.1
 //
+$zca_bootstrap_version = zen_config('ZCA_BOOTSTRAP_VERSION');
 switch (true) {
     // -----
     // v3.2.0: Add settings for the Bootstrap template's AJAX search feature.  Update
     // description for 'Product Listing :: Columns Per Row' to indicate the preferred
     // values for the Bootstrap template.
     //
-    case version_compare(ZCA_BOOTSTRAP_VERSION, '3.2.0', '<'):
+    case version_compare($zca_bootstrap_version, '3.2.0', '<'):
         $db->Execute(
             "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added, sort_order, use_function, set_function)
@@ -49,7 +50,7 @@ switch (true) {
     // v3.6.4: Add setting to force 'floating' "Add Selected to Cart" button on
     // product-listing pages.
     //
-    case version_compare(ZCA_BOOTSTRAP_VERSION, '3.6.4', '<'):  //- Fall through from above
+    case version_compare($zca_bootstrap_version, '3.6.4', '<'):  //- Fall through from above
         $db->Execute(
             "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added, sort_order, use_function, set_function)
@@ -71,7 +72,7 @@ switch (true) {
     // - Add settings to enable/control various sidebox carousels.
     // - Add settings to enable/control various centerbox carousels.
     //
-    case version_compare(ZCA_BOOTSTRAP_VERSION, '3.7.0', '<'):  //- Fall through from above
+    case version_compare($zca_bootstrap_version, '3.7.0', '<'):  //- Fall through from above
         $db->Execute(
             "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added, sort_order, use_function, set_function)
@@ -133,7 +134,7 @@ switch (true) {
     //
     // - Add setting to identify whether/not a product's description is included in the AJAX search.
     //
-    case version_compare(ZCA_BOOTSTRAP_VERSION, '3.7.2', '<'):  //- Fall through from above
+    case version_compare($zca_bootstrap_version, '3.7.2', '<'):  //- Fall through from above
         $db->Execute(
             "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
                 (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added, sort_order, use_function, set_function)

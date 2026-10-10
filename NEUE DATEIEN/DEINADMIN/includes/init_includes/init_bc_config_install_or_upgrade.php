@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills 
- * @copyright Copyright 2003-2023 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: init.bc_config_install_or_upgrade.php 2024-11-01 15:22:39Z webchills $
+ * @version $Id: init.bc_config_install_or_upgrade.php 2026-10-10 15:22:39Z webchills $
  */
 // -----
 // Brought in by /admin/init_includes/init_bc_config.php for an initial installation or upgrade to the colors. 
@@ -819,189 +819,180 @@ $zca_bc_colors = [
 
 // -----
 // Prior to Bootstrap/Bootstrap Colors v3.5.2, there was no versioning for the colors' configuration. The
-// initial 'upgrade' for v3.5.2 will start by applying *all* current color configurations if the
+// initial 'upgrade' for v3.5.2 and later starts by applying *all* current color configurations if the
 // Bootstrap Colors' version setting isn't yet defined, implying either a pre-v3.5.2 or initial installation that
 // we're starting with.
 //
 // NOTE: No 'use_function' or 'set_function' needed for any of these human-enterable settings!
 //
 $zca_bc_installed = false;
-if (!defined('ZCA_BOOTSTRAP_COLORS_VERSION')) {
+if (zen_config('ZCA_BOOTSTRAP_COLORS_VERSION') === null) {
     // -----
     // Further, if this is an _initial_ install of the Bootstrap template and its associated colors, all
     // current colors' default values are set as their color selection.  If that color-setting *is* defined,
     // then any colors added on or after v3.5.2 will be added with a 'not-set' value to enable a
     // site to choose the best color for their store's color-scheme prior to use on the storefront.
     //
-    if (!defined('ZCA_BODY_TEXT_COLOR')) {
+    if (zen_config('ZCA_BODY_TEXT_COLOR') !== null) {
         $zca_bc_installed = true;
     }
-    $configuration_values = '';
+    
     foreach ($zca_bc_colors as $key => $values) {
         $default_value = $values['configuration_value'];
         $added_version = (isset($values['added']) && $values['added'] >= '3.5.2') ? (' (Added in v'. $values['added'] . ')') : '';
-        $default_color = ($zca_bc_installed === false && $added_version !== '' && empty($values['set_default'])) ? 'not-set' : $default_value;
-        $configuration_values .= "('" . $values['configuration_title'] . "', '$key', '$default_color', 'Default: $default_value.$added_version', $bccid, " . $values['sort_order'] . ", now()),";
+        $default_color = ($zca_bc_installed === true && $added_version !== '' && empty($values['set_default'])) ? 'not-set' : $default_value;
+        $db->Execute(
+            "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
+                (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added)
+             VALUES
+                ('" . $values['configuration_title'] . "', '$key', '$default_color', 'Default: $default_value.$added_version', $bccid, " . $values['sort_order'] . ", now())"
+        );
+   
     }
-    $configuration_values = rtrim($configuration_values, ',');
-    $db->Execute(
-        "INSERT IGNORE INTO " . TABLE_CONFIGURATION . "
-            (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, sort_order, date_added)
-         VALUES
-            $configuration_values"
-    );
-    unset($configuration_values);
+}
+
     // -----
     // Lets translate all these template config settings to German
     //
     $db->Execute(
  "REPLACE INTO " . TABLE_CONFIGURATION_LANGUAGE . " (configuration_title, configuration_key, configuration_language_id, configuration_description,  last_modified, date_added) VALUES
-('<b>Body</b> Hintergrund Farbe', 'ZCA_BODY_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Text Farbe', 'ZCA_BODY_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Body Breadcrumbs</b> Hintergrund Farbe', 'ZCA_BODY_BREADCRUMBS_BACKGROUND_COLOR', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Breadcrumbs Text Farbe', 'ZCA_BODY_BREADCRUMBS_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Breadcrumbs Link Farbe', 'ZCA_BODY_BREADCRUMBS_LINK_COLOR', 43, 'Voreinstellung: #0a3f52', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Breadcrumbs Link Farbe bei Hover', 'ZCA_BODY_BREADCRUMBS_LINK_COLOR_HOVER', 43, 'Voreinstellung: #003c52', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Body Artikel</b> Preis', 'ZCA_BODY_PRODUCTS_BASE_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Artikel Normalpreis', 'ZCA_BODY_PRODUCTS_NORMAL_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Artikel Sonderangebotspreis', 'ZCA_BODY_PRODUCTS_SPECIAL_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Artikel Rabattpreis', 'ZCA_BODY_PRODUCTS_DISCOUNT_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Products Abverkaufspreis', 'ZCA_BODY_PRODUCTS_SALE_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Products Gratis Preis', 'ZCA_BODY_PRODUCTS_FREE_COLOR', 43, 'Voreinstellung: #0000ff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Body Formularfelder</b> Platzhalter', 'ZCA_BODY_PLACEHOLDER', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Alarm Info Farbe</b>', 'ZCA_ALERT_INFO_COLOR', 43, 'Voreinstellung: #13525e', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Alarm Info Hintergrund Farbe', 'ZCA_ALERT_INFO_BACKGROUND_COLOR', 43, 'Voreinstellung: #d1ecf1', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Alarm Info Rahmen Farbe', 'ZCA_ALERT_INFO_BORDER_COLOR', 43, 'Voreinstellung: #bee5eb', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Body Bewertungssterne</b> Hintergrund Farbe', 'ZCA_BODY_RATING_STAR_BACKGROUND_COLOR', 43, 'Voreinstellung: #322424', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Body Bewertungssterne Farbe', 'ZCA_BODY_RATING_STAR_COLOR', 43, 'Voreinstellung: #efa31d', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Button</b> Text Farbe', 'ZCA_BUTTON_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Button Text Farbe bei Hover', 'ZCA_BUTTON_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #0056b3', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Button Hintergrund Farbe', 'ZCA_BUTTON_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Button Hintergrund Farbe bei Hover', 'ZCA_BUTTON_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Button Rahmen Farbe', 'ZCA_BUTTON_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Button Rahmen Farbe bei Hover', 'ZCA_BUTTON_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Link</b> Farbe', 'ZCA_BUTTON_LINK_COLOR', 43, 'Voreinstellung: #0000a0', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Link Farbe bei Hover', 'ZCA_BUTTON_LINK_COLOR_HOVER', 43, 'Voreinstellung: #0056b3', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Blättern Button</b> Text Farbe', 'ZCA_BUTTON_PAGEINATION_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Button Text Farbe bei Hover', 'ZCA_BUTTON_PAGEINATION_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Button Farbe', 'ZCA_BUTTON_PAGEINATION_COLOR', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Button Farbe bei Hover', 'ZCA_BUTTON_PAGEINATION_COLOR_HOVER', 43, 'Voreinstellung: #0099cc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Button Rahmen Farbe', 'ZCA_BUTTON_PAGEINATION_BORDER_COLOR', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Button Rahmen Farbe bei Hover', 'ZCA_BUTTON_PAGEINATION_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #0099cc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Aktiv Button Text Farbe', 'ZCA_BUTTON_PAGEINATION_ACTIVE_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Blättern Aktiv Button Farbe', 'ZCA_BUTTON_PAGEINATION_ACTIVE_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Wrapper</b> Hintergrund Farbe', 'ZCA_HEADER_WRAPPER_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Tagline Text Farbe', 'ZCA_HEADER_TAGLINE_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Navigationsleiste</b> Hintergrund Farbe', 'ZCA_HEADER_NAV_BAR_BACKGROUND_COLOR', 43, 'Voreinstellung: #333333', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Navigationsleiste Link</b> Farbe', 'ZCA_HEADER_NAVBAR_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Link Farbe bei Hover', 'ZCA_HEADER_NAVBAR_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Link Hintergrund Farbe bei Hover', 'ZCA_HEADER_NAVBAR_LINK_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #333333', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Navigationsleiste Toggler</b> Text Farbe', 'ZCA_HEADER_NAVBAR_BUTTON_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Toggler Text Farbe bei Hover', 'ZCA_HEADER_NAVBAR_BUTTON_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Toggler Hintergrund Farbe', 'ZCA_HEADER_NAVBAR_BUTTON_COLOR', 43, 'Voreinstellung: #343a40', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Toggler Hintergrund Farbe bei Hover', 'ZCA_HEADER_NAVBAR_BUTTON_COLOR_HOVER', 43, 'Voreinstellung: #919aa1', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Toggler Rahmen Farbe', 'ZCA_HEADER_NAVBAR_BUTTON_BORDER_COLOR', 43, 'Voreinstellung: #343a40', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Toggler Rahmen Farbe bei Hover', 'ZCA_HEADER_NAVBAR_BUTTON_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #919aa1', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Navigationsleiste Extra Button</b> Text Farbe', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Extra Button Text Farbe bei Hover', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #0056b3', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Extra Button Hintergrund Farbe', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BACKGROUND_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Extra Button Hintergrund Farbe bei Hover', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Extra Button Rahmen Farbe', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Navigationsleiste Extra Button Rahmen Farbe bei Hover', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Kategorie Tabs</b> Hintergrund Farbe', 'ZCA_HEADER_TABS_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Hintergrund Farbe bei Hover', 'ZCA_HEADER_TABS_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Text Farbe', 'ZCA_HEADER_TABS_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Text Farbe bei Hover', 'ZCA_HEADER_TABS_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Rahmen Farbe', 'ZCA_HEADER_TABS_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Rahmen Farbe bei Hover', 'ZCA_HEADER_TABS_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header Kategorie Tabs Aktiv</b> Hintergrund Farbe', 'ZCA_HEADER_TABS_ACTIVE_BACKGROUND_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Aktiv Hintergrund Farbe bei Hover', 'ZCA_HEADER_TABS_ACTIVE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Aktiv Farbe', 'ZCA_HEADER_TABS_ACTIVE_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Aktiv Farbe bei Hover', 'ZCA_HEADER_TABS_ACTIVE_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Aktiv Rahmen Farbe', 'ZCA_HEADER_TABS_ACTIVE_BORDER_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header Kategorie Tabs Aktiv Rahmen Farbe bei Hover', 'ZCA_HEADER_TABS_ACTIVE_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Header EZ-Seite Leiste</b> Hintergrund Farbe', 'ZCA_HEADER_EZPAGE_BACKGROUND_COLOR', 43, 'Voreinstellung: #464646', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header EZ-Seite Leiste Hintergrund Farbe bei Hover', 'ZCA_HEADER_EZPAGE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #363636', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header EZ-Seite Leiste Link Farbe', 'ZCA_HEADER_EZPAGE_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Header EZ-Seite Leiste Link Farbe bei Hover', 'ZCA_HEADER_EZPAGE_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Footer Wrapper</b> Hintergrund Farbe', 'ZCA_FOOTER_WRAPPER_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Footer Wrapper Text Farbe', 'ZCA_FOOTER_WRAPPER_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Footer EZ-Seite Leiste</b> Hintergrund Farbe', 'ZCA_FOOTER_EZPAGE_BACKGROUND_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Footer EZ-Seite Leiste Hintergrund Farbe bei Hover', 'ZCA_FOOTER_EZPAGE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Footer EZ-Seite Leiste Link Farbe', 'ZCA_FOOTER_EZPAGE_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Footer EZ-Seite Leiste Link Farbe bei Hover', 'ZCA_FOOTER_EZPAGE_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Sidebox</b> Hintergrund Farbe', 'ZCA_SIDEBOX_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Text Farbe', 'ZCA_SIDEBOX_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Link Hintergrund Farbe', 'ZCA_SIDEBOX_LINK_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Link Hintergrund Farbe bei Hover', 'ZCA_SIDEBOX_LINK_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Link Farbe', 'ZCA_SIDEBOX_LINK_COLOR', 43, 'Voreinstellung: #0000a0', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Link Farbe bei Hover', 'ZCA_SIDEBOX_LINK_COLOR_HOVER', 43, 'Voreinstellung: #003975', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Sidebox Product Card</b> Hintergrund Farbe', 'ZCA_SIDEBOX_CARD_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Product Card Hintergrund Farbe bei Hover', 'ZCA_SIDEBOX_CARD_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Sidebox Header</b> Hintergrund Farbe', 'ZCA_SIDEBOX_HEADER_BACKGROUND_COLOR', 43, 'Voreinstellung: #333333', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Header Text Farbe', 'ZCA_SIDEBOX_HEADER_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Header Link Farbe', 'ZCA_SIDEBOX_HEADER_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Header Link Farbe bei Hover', 'ZCA_SIDEBOX_HEADER_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Sidebox Kategoriezähler</b> Hintergrund Farbe', 'ZCA_SIDEBOX_COUNTS_BACKGROUND_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Sidebox Kategoriezähler Farbe', 'ZCA_SIDEBOX_COUNTS_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Centerbox</b> Hintergrund Farbe', 'ZCA_CENTERBOX_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Centerbox Text Farbe', 'ZCA_CENTERBOX_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Centerbox Product Card</b> Hintergrund Farbe', 'ZCA_CENTERBOX_CARD_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Centerbox Product Card Hintergrund Farbe bei Hover', 'ZCA_CENTERBOX_CARD_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #efefef', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Centerbox Header</b> Hintergrund Farbe', 'ZCA_CENTERBOX_HEADER_BACKGROUND_COLOR', 43, 'Voreinstellung: #333333', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Centerbox Header Text Farbe', 'ZCA_CENTERBOX_HEADER_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>in den Warenkorb Schaltfläche</b> Hintergrund Farbe', 'ZCA_ADD_TO_CART_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('in den Warenkorb Schaltfläche Text Farbe', 'ZCA_ADD_TO_CART_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('in den Warenkorb Schaltfläche Rahmen Farbe', 'ZCA_ADD_TO_CART_BORDER_COLOR', 43, 'Voreinstellung: #036811', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>in den Warenkorb Button</b> Hintergrund Farbe', 'ZCA_BUTTON_IN_CART_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('in den Warenkorb Button Hintergrund Farbe bei Hover', 'ZCA_BUTTON_IN_CART_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #007e33', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('in den Warenkorb Button Text Farbe', 'ZCA_BUTTON_IN_CART_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('in den Warenkorb Button Text Farbe bei Hover', 'ZCA_BUTTON_IN_CART_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Ausgewählte in den Warenkorb Button</b> Hintergrund Farbe', 'ZCA_BUTTON_ADD_SELECTED_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Ausgewählte in den Warenkorb Button Hintergrund Farbe bei Hover', 'ZCA_BUTTON_ADD_SELECTED_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #007e33', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Ausgewählte in den Warenkorb Button Text Farbe', 'ZCA_BUTTON_ADD_SELECTED_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Ausgewählte in den Warenkorb Button Text Farbe bei Hover', 'ZCA_BUTTON_ADD_SELECTED_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Checkout 3-Seite</b> Progress Leiste Hintergrund Farbe', 'ZCA_CHECKOUT_PROGRESS_BAR_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Checkout &quot;Weiter&quot; Button</b> Hintergrund Farbe', 'ZCA_CHECKOUT_CONTINUE_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffd814', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Weiter&quot; Button Hintergrund Farbe bei Hover', 'ZCA_CHECKOUT_CONTINUE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #f7ca00', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Weiter&quot; Button Farbe', 'ZCA_CHECKOUT_CONTINUE_COLOR', 43, 'Voreinstellung: #0f1111', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Weiter&quot; Button Farbe bei Hover', 'ZCA_CHECKOUT_CONTINUE_COLOR_HOVER', 43, 'Voreinstellung: #0f1111', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Weiter&quot; Button Rahmen Farbe', 'ZCA_CHECKOUT_CONTINUE_BORDER_COLOR', 43, 'Voreinstellung: #fcd200', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Weiter&quot; Button Rahmen Farbe bei Hover', 'ZCA_CHECKOUT_CONTINUE_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #f2c200', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Checkout &quot;Confirm&quot; Button</b> Hintergrund Farbe', 'ZCA_CHECKOUT_CONFIRM_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffd814', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Confirm&quot; Button Hintergrund Farbe bei Hover', 'ZCA_CHECKOUT_CONFIRM_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #f7ca00', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Confirm&quot; Button Farbe', 'ZCA_CHECKOUT_CONFIRM_COLOR', 43, 'Voreinstellung: #0f1111', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Confirm&quot; Button Farbe bei Hover', 'ZCA_CHECKOUT_CONFIRM_COLOR_HOVER', 43, 'Voreinstellung: #0f1111', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Confirm&quot; Button Rahmen Farbe', 'ZCA_CHECKOUT_CONFIRM_BORDER_COLOR', 43, 'Voreinstellung: #fcd200', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Checkout &quot;Confirm&quot; Button Rahmen Farbe bei Hover', 'ZCA_CHECKOUT_CONFIRM_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #f2c200', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Ausverkauft Button</b> Hintergrund Farbe', 'ZCA_SOLD_OUT_BACKGROUND_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Ausverkauft Button Farbe', 'ZCA_SOLD_OUT_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Ausverkauft Button Rahmen Farbe', 'ZCA_SOLD_OUT_BORDER_COLOR', 43, 'Voreinstellung: #a80000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Karussell</b> Vorheriger/Nächster Icon Farbe', 'ZCA_CAROUSEL_PREV_NEXT_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Karussell Vorheriger/Nächster Icon Farbe bei Hover', 'ZCA_CAROUSEL_PREV_NEXT_COLOR_HOVER', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Karussell Indikatoren Hintergrund Farbe', 'ZCA_CAROUSEL_BANNER_INDICATORS_BACKGROUND_COLOR', 43, 'Voreinstellung: #000000', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('<b>Hauptadresse</b> Adressbuch Hintergrund Farbe', 'ZCA_PRIMARY_ADDRESS_ADDRESS_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Hauptadresse Adressbuch Farbe', 'ZCA_PRIMARY_ADDRESS_ADDRESS_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Hauptadresse Card Header Hintergrund Farbe', 'ZCA_PRIMARY_ADDRESS_CARD_HEADER_BACKGROUND_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Hauptadresse Card Header Farbe', 'ZCA_PRIMARY_ADDRESS_CARD_HEADER_COLOR', 43, 'Voreinstellung: #ffffff', '2024-11-04 11:24:31', '2024-11-04 11:24:31'),
-('Hauptadresse Card Rahmen Farbe', 'ZCA_PRIMARY_ADDRESS_CARD_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2024-11-04 11:24:31', '2024-11-04 11:24:31');"
+('<b>Body</b> Hintergrund Farbe', 'ZCA_BODY_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Text Farbe', 'ZCA_BODY_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Body Breadcrumbs</b> Hintergrund Farbe', 'ZCA_BODY_BREADCRUMBS_BACKGROUND_COLOR', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Breadcrumbs Text Farbe', 'ZCA_BODY_BREADCRUMBS_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Breadcrumbs Link Farbe', 'ZCA_BODY_BREADCRUMBS_LINK_COLOR', 43, 'Voreinstellung: #0a3f52', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Breadcrumbs Link Farbe bei Hover', 'ZCA_BODY_BREADCRUMBS_LINK_COLOR_HOVER', 43, 'Voreinstellung: #003c52', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Body Artikel</b> Preis', 'ZCA_BODY_PRODUCTS_BASE_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Artikel Normalpreis', 'ZCA_BODY_PRODUCTS_NORMAL_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Artikel Sonderangebotspreis', 'ZCA_BODY_PRODUCTS_SPECIAL_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Artikel Rabattpreis', 'ZCA_BODY_PRODUCTS_DISCOUNT_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Products Abverkaufspreis', 'ZCA_BODY_PRODUCTS_SALE_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Products Gratis Preis', 'ZCA_BODY_PRODUCTS_FREE_COLOR', 43, 'Voreinstellung: #0000ff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Body Formularfelder</b> Platzhalter', 'ZCA_BODY_PLACEHOLDER', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Alarm Info Farbe</b>', 'ZCA_ALERT_INFO_COLOR', 43, 'Voreinstellung: #13525e', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Alarm Info Hintergrund Farbe', 'ZCA_ALERT_INFO_BACKGROUND_COLOR', 43, 'Voreinstellung: #d1ecf1', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Alarm Info Rahmen Farbe', 'ZCA_ALERT_INFO_BORDER_COLOR', 43, 'Voreinstellung: #bee5eb', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Body Bewertungssterne</b> Hintergrund Farbe', 'ZCA_BODY_RATING_STAR_BACKGROUND_COLOR', 43, 'Voreinstellung: #322424', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Body Bewertungssterne Farbe', 'ZCA_BODY_RATING_STAR_COLOR', 43, 'Voreinstellung: #efa31d', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Button</b> Text Farbe', 'ZCA_BUTTON_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Button Text Farbe bei Hover', 'ZCA_BUTTON_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #0056b3', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Button Hintergrund Farbe', 'ZCA_BUTTON_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Button Hintergrund Farbe bei Hover', 'ZCA_BUTTON_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Button Rahmen Farbe', 'ZCA_BUTTON_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Button Rahmen Farbe bei Hover', 'ZCA_BUTTON_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Link</b> Farbe', 'ZCA_BUTTON_LINK_COLOR', 43, 'Voreinstellung: #0000a0', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Link Farbe bei Hover', 'ZCA_BUTTON_LINK_COLOR_HOVER', 43, 'Voreinstellung: #0056b3', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Blättern Button</b> Text Farbe', 'ZCA_BUTTON_PAGEINATION_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Button Text Farbe bei Hover', 'ZCA_BUTTON_PAGEINATION_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Button Farbe', 'ZCA_BUTTON_PAGEINATION_COLOR', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Button Farbe bei Hover', 'ZCA_BUTTON_PAGEINATION_COLOR_HOVER', 43, 'Voreinstellung: #0099cc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Button Rahmen Farbe', 'ZCA_BUTTON_PAGEINATION_BORDER_COLOR', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Button Rahmen Farbe bei Hover', 'ZCA_BUTTON_PAGEINATION_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #0099cc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Aktiv Button Text Farbe', 'ZCA_BUTTON_PAGEINATION_ACTIVE_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Blättern Aktiv Button Farbe', 'ZCA_BUTTON_PAGEINATION_ACTIVE_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Wrapper</b> Hintergrund Farbe', 'ZCA_HEADER_WRAPPER_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Tagline Text Farbe', 'ZCA_HEADER_TAGLINE_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Navigationsleiste</b> Hintergrund Farbe', 'ZCA_HEADER_NAV_BAR_BACKGROUND_COLOR', 43, 'Voreinstellung: #333333', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Navigationsleiste Link</b> Farbe', 'ZCA_HEADER_NAVBAR_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Link Farbe bei Hover', 'ZCA_HEADER_NAVBAR_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Link Hintergrund Farbe bei Hover', 'ZCA_HEADER_NAVBAR_LINK_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #333333', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Navigationsleiste Toggler</b> Text Farbe', 'ZCA_HEADER_NAVBAR_BUTTON_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Toggler Text Farbe bei Hover', 'ZCA_HEADER_NAVBAR_BUTTON_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Toggler Hintergrund Farbe', 'ZCA_HEADER_NAVBAR_BUTTON_COLOR', 43, 'Voreinstellung: #343a40', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Toggler Hintergrund Farbe bei Hover', 'ZCA_HEADER_NAVBAR_BUTTON_COLOR_HOVER', 43, 'Voreinstellung: #919aa1', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Toggler Rahmen Farbe', 'ZCA_HEADER_NAVBAR_BUTTON_BORDER_COLOR', 43, 'Voreinstellung: #343a40', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Toggler Rahmen Farbe bei Hover', 'ZCA_HEADER_NAVBAR_BUTTON_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #919aa1', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Navigationsleiste Extra Button</b> Text Farbe', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Extra Button Text Farbe bei Hover', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #0056b3', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Extra Button Hintergrund Farbe', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BACKGROUND_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Extra Button Hintergrund Farbe bei Hover', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Extra Button Rahmen Farbe', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Navigationsleiste Extra Button Rahmen Farbe bei Hover', 'ZCA_HEADER_NAVBAR_EXTRA_BUTTON_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Kategorie Tabs</b> Hintergrund Farbe', 'ZCA_HEADER_TABS_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Hintergrund Farbe bei Hover', 'ZCA_HEADER_TABS_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Text Farbe', 'ZCA_HEADER_TABS_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Text Farbe bei Hover', 'ZCA_HEADER_TABS_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Rahmen Farbe', 'ZCA_HEADER_TABS_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Rahmen Farbe bei Hover', 'ZCA_HEADER_TABS_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header Kategorie Tabs Aktiv</b> Hintergrund Farbe', 'ZCA_HEADER_TABS_ACTIVE_BACKGROUND_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Aktiv Hintergrund Farbe bei Hover', 'ZCA_HEADER_TABS_ACTIVE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Aktiv Farbe', 'ZCA_HEADER_TABS_ACTIVE_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Aktiv Farbe bei Hover', 'ZCA_HEADER_TABS_ACTIVE_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Aktiv Rahmen Farbe', 'ZCA_HEADER_TABS_ACTIVE_BORDER_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header Kategorie Tabs Aktiv Rahmen Farbe bei Hover', 'ZCA_HEADER_TABS_ACTIVE_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Header EZ-Seite Leiste</b> Hintergrund Farbe', 'ZCA_HEADER_EZPAGE_BACKGROUND_COLOR', 43, 'Voreinstellung: #464646', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header EZ-Seite Leiste Hintergrund Farbe bei Hover', 'ZCA_HEADER_EZPAGE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #363636', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header EZ-Seite Leiste Link Farbe', 'ZCA_HEADER_EZPAGE_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Header EZ-Seite Leiste Link Farbe bei Hover', 'ZCA_HEADER_EZPAGE_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Footer Wrapper</b> Hintergrund Farbe', 'ZCA_FOOTER_WRAPPER_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Footer Wrapper Text Farbe', 'ZCA_FOOTER_WRAPPER_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Footer EZ-Seite Leiste</b> Hintergrund Farbe', 'ZCA_FOOTER_EZPAGE_BACKGROUND_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Footer EZ-Seite Leiste Hintergrund Farbe bei Hover', 'ZCA_FOOTER_EZPAGE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Footer EZ-Seite Leiste Link Farbe', 'ZCA_FOOTER_EZPAGE_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Footer EZ-Seite Leiste Link Farbe bei Hover', 'ZCA_FOOTER_EZPAGE_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Sidebox</b> Hintergrund Farbe', 'ZCA_SIDEBOX_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Text Farbe', 'ZCA_SIDEBOX_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Link Hintergrund Farbe', 'ZCA_SIDEBOX_LINK_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Link Hintergrund Farbe bei Hover', 'ZCA_SIDEBOX_LINK_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Link Farbe', 'ZCA_SIDEBOX_LINK_COLOR', 43, 'Voreinstellung: #0000a0', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Link Farbe bei Hover', 'ZCA_SIDEBOX_LINK_COLOR_HOVER', 43, 'Voreinstellung: #003975', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Sidebox Product Card</b> Hintergrund Farbe', 'ZCA_SIDEBOX_CARD_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Product Card Hintergrund Farbe bei Hover', 'ZCA_SIDEBOX_CARD_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Sidebox Header</b> Hintergrund Farbe', 'ZCA_SIDEBOX_HEADER_BACKGROUND_COLOR', 43, 'Voreinstellung: #333333', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Header Text Farbe', 'ZCA_SIDEBOX_HEADER_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Header Link Farbe', 'ZCA_SIDEBOX_HEADER_LINK_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Header Link Farbe bei Hover', 'ZCA_SIDEBOX_HEADER_LINK_COLOR_HOVER', 43, 'Voreinstellung: #cccccc', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Sidebox Kategoriezähler</b> Hintergrund Farbe', 'ZCA_SIDEBOX_COUNTS_BACKGROUND_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Sidebox Kategoriezähler Farbe', 'ZCA_SIDEBOX_COUNTS_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Centerbox</b> Hintergrund Farbe', 'ZCA_CENTERBOX_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Centerbox Text Farbe', 'ZCA_CENTERBOX_TEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Centerbox Product Card</b> Hintergrund Farbe', 'ZCA_CENTERBOX_CARD_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Centerbox Product Card Hintergrund Farbe bei Hover', 'ZCA_CENTERBOX_CARD_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #efefef', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Centerbox Header</b> Hintergrund Farbe', 'ZCA_CENTERBOX_HEADER_BACKGROUND_COLOR', 43, 'Voreinstellung: #333333', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Centerbox Header Text Farbe', 'ZCA_CENTERBOX_HEADER_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>in den Warenkorb Schaltfläche</b> Hintergrund Farbe', 'ZCA_ADD_TO_CART_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('in den Warenkorb Schaltfläche Text Farbe', 'ZCA_ADD_TO_CART_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('in den Warenkorb Schaltfläche Rahmen Farbe', 'ZCA_ADD_TO_CART_BORDER_COLOR', 43, 'Voreinstellung: #036811', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>in den Warenkorb Button</b> Hintergrund Farbe', 'ZCA_BUTTON_IN_CART_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('in den Warenkorb Button Hintergrund Farbe bei Hover', 'ZCA_BUTTON_IN_CART_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #007e33', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('in den Warenkorb Button Text Farbe', 'ZCA_BUTTON_IN_CART_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('in den Warenkorb Button Text Farbe bei Hover', 'ZCA_BUTTON_IN_CART_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Ausgewählte in den Warenkorb Button</b> Hintergrund Farbe', 'ZCA_BUTTON_ADD_SELECTED_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Ausgewählte in den Warenkorb Button Hintergrund Farbe bei Hover', 'ZCA_BUTTON_ADD_SELECTED_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #007e33', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Ausgewählte in den Warenkorb Button Text Farbe', 'ZCA_BUTTON_ADD_SELECTED_TEXT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Ausgewählte in den Warenkorb Button Text Farbe bei Hover', 'ZCA_BUTTON_ADD_SELECTED_TEXT_COLOR_HOVER', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Checkout 3-Seite</b> Progress Leiste Hintergrund Farbe', 'ZCA_CHECKOUT_PROGRESS_BAR_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Checkout &quot;Weiter&quot; Button</b> Hintergrund Farbe', 'ZCA_CHECKOUT_CONTINUE_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffd814', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Weiter&quot; Button Hintergrund Farbe bei Hover', 'ZCA_CHECKOUT_CONTINUE_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #f7ca00', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Weiter&quot; Button Farbe', 'ZCA_CHECKOUT_CONTINUE_COLOR', 43, 'Voreinstellung: #0f1111', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Weiter&quot; Button Farbe bei Hover', 'ZCA_CHECKOUT_CONTINUE_COLOR_HOVER', 43, 'Voreinstellung: #0f1111', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Weiter&quot; Button Rahmen Farbe', 'ZCA_CHECKOUT_CONTINUE_BORDER_COLOR', 43, 'Voreinstellung: #fcd200', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Weiter&quot; Button Rahmen Farbe bei Hover', 'ZCA_CHECKOUT_CONTINUE_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #f2c200', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Checkout &quot;Confirm&quot; Button</b> Hintergrund Farbe', 'ZCA_CHECKOUT_CONFIRM_BACKGROUND_COLOR', 43, 'Voreinstellung: #ffd814', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Confirm&quot; Button Hintergrund Farbe bei Hover', 'ZCA_CHECKOUT_CONFIRM_BACKGROUND_COLOR_HOVER', 43, 'Voreinstellung: #f7ca00', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Confirm&quot; Button Farbe', 'ZCA_CHECKOUT_CONFIRM_COLOR', 43, 'Voreinstellung: #0f1111', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Confirm&quot; Button Farbe bei Hover', 'ZCA_CHECKOUT_CONFIRM_COLOR_HOVER', 43, 'Voreinstellung: #0f1111', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Confirm&quot; Button Rahmen Farbe', 'ZCA_CHECKOUT_CONFIRM_BORDER_COLOR', 43, 'Voreinstellung: #fcd200', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Checkout &quot;Confirm&quot; Button Rahmen Farbe bei Hover', 'ZCA_CHECKOUT_CONFIRM_BORDER_COLOR_HOVER', 43, 'Voreinstellung: #f2c200', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Ausverkauft Button</b> Hintergrund Farbe', 'ZCA_SOLD_OUT_BACKGROUND_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Ausverkauft Button Farbe', 'ZCA_SOLD_OUT_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Ausverkauft Button Rahmen Farbe', 'ZCA_SOLD_OUT_BORDER_COLOR', 43, 'Voreinstellung: #a80000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Karussell</b> Vorheriger/Nächster Icon Farbe', 'ZCA_CAROUSEL_PREV_NEXT_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Karussell Vorheriger/Nächster Icon Farbe bei Hover', 'ZCA_CAROUSEL_PREV_NEXT_COLOR_HOVER', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Karussell Indikatoren Hintergrund Farbe', 'ZCA_CAROUSEL_BANNER_INDICATORS_BACKGROUND_COLOR', 43, 'Voreinstellung: #000000', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('<b>Hauptadresse</b> Adressbuch Hintergrund Farbe', 'ZCA_PRIMARY_ADDRESS_ADDRESS_BACKGROUND_COLOR', 43, 'Voreinstellung: #036811', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Hauptadresse Adressbuch Farbe', 'ZCA_PRIMARY_ADDRESS_ADDRESS_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Hauptadresse Card Header Hintergrund Farbe', 'ZCA_PRIMARY_ADDRESS_CARD_HEADER_BACKGROUND_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Hauptadresse Card Header Farbe', 'ZCA_PRIMARY_ADDRESS_CARD_HEADER_COLOR', 43, 'Voreinstellung: #ffffff', '2026-10-10 11:24:31', '2026-10-10 11:24:31'),
+('Hauptadresse Card Rahmen Farbe', 'ZCA_PRIMARY_ADDRESS_CARD_BORDER_COLOR', 43, 'Voreinstellung: #13607c', '2026-10-10 11:24:31', '2026-10-10 11:24:31');"
     );
+
 
     // -----
     // Create the menu item for the ZCA Bootstrap Colors tool, if it's not already there.
     //
     if (!zen_page_key_exists('toolsZCABootstrapColors')) {
         zen_register_admin_page('toolsZCABootstrapColors', 'BOX_TOOLS_ZCA_BOOTSTRAP_COLORS', 'FILENAME_ZCA_BOOTSTRAP_COLORS', '', 'tools', 'Y');
-    }
-
-    // -----
-    // Let the admin know that the initial installation was successfully completed.  The configuration value checked
-    // has been there since the initial release, so defer the message output to the upgrade section if it's currently
-    // defined.
-    //
-    if ($zca_bc_installed === true) {
-        $messageStack->add_session(sprintf(SUCCESS_ZCA_BOOTSTRAP_COLORS_INSTALLED, ZCA_BOOTSTRAP_COLORS_CURRENT_VERSION), 'success');
-    }
 }
 
 // -----
@@ -1018,7 +1009,7 @@ switch (true) {
     // v3.5.2+: Major restructuring of the colors' titles and sort-orders.  The initialization section above has recorded
     // all of the newly-added color settings for an initial installation.
     //
-    // Go back through each, updating each setting to use the now-current version of the colors' settings.
+    // Go back through each, updating the setting to use the now-current version of the colors' settings.
     //
     // Note: Left as a 'case' statement just in case some future version needs to remove a setting.
     //
@@ -1026,7 +1017,7 @@ switch (true) {
         foreach ($zca_bc_colors as $key => $values) {
             $default_value = $values['configuration_value'];
             $added_version = (isset($values['added']) && $values['added'] >= '3.5.2') ? (' (Added in v'. $values['added'] . ')') : '';
-            $default_color = ($zca_bc_installed === false && $added_version !== '' && empty($values['set_default'])) ? 'not-set' : $default_value;
+            $default_color = ($added_version !== '' && empty($values['set_default'])) ? 'not-set' : $default_value;
             $description = "Voreinstellung: $default_value.$added_version";
             if (isset($values['added'])) {
                 $db->Execute(
@@ -1060,7 +1051,8 @@ unset($zca_bc_colors);
 // setting is recorded in the 'Modules' configuration group, so it's not displayed as a row
 // within the Tools :: ZCA Bootstrap Colors tool.
 //
-if (!defined('ZCA_BOOTSTRAP_COLORS_VERSION')) {
+if (zen_config('ZCA_BOOTSTRAP_COLORS_VERSION') === null) {
+    $messageStack->add_session(sprintf(SUCCESS_ZCA_BOOTSTRAP_COLORS_INSTALLED, ZCA_BOOTSTRAP_COLORS_CURRENT_VERSION), 'success');
     $db->Execute(
         "INSERT INTO " . TABLE_CONFIGURATION . "
             (configuration_title, configuration_key, configuration_value, configuration_description, configuration_group_id, date_added, sort_order, set_function)
@@ -1068,6 +1060,7 @@ if (!defined('ZCA_BOOTSTRAP_COLORS_VERSION')) {
             ('Bootstrap Colors Version', 'ZCA_BOOTSTRAP_COLORS_VERSION', '" . ZCA_BOOTSTRAP_COLORS_CURRENT_VERSION . "', 'Displays the current version of the <em>ZCA Bootstrap Colors</em> tool.', 6, now(), 0, 'zen_cfg_read_only(')"
     );
 } else {
+    $messageStack->add_session(sprintf(SUCCESS_ZCA_BOOTSTRAP_COLORS_UPDATED, ZCA_BOOTSTRAP_COLORS_CURRENT_VERSION), 'success');
     $db->Execute(
         "UPDATE " . TABLE_CONFIGURATION . "
             SET configuration_value = '" . ZCA_BOOTSTRAP_COLORS_CURRENT_VERSION . "',
@@ -1077,9 +1070,3 @@ if (!defined('ZCA_BOOTSTRAP_COLORS_VERSION')) {
     );
 }
 
-// -----
-// If an initial installation wasn't also run, let the admin know that the upgrade was successfully completed.
-//
-if ($zca_bc_installed === false) {
-    $messageStack->add_session(sprintf(SUCCESS_ZCA_BOOTSTRAP_COLORS_UPDATED, ZCA_BOOTSTRAP_COLORS_CURRENT_VERSION), 'success');
-}

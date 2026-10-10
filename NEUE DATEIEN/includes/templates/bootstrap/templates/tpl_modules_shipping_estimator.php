@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_shipping_estimator.php 2024-10-26 17:22:39Z webchills $
+ * @version $Id: tpl_modules_shipping_estimator.php 2026-10-10 17:22:39Z webchills $
  */
 if ($_SESSION['cart']->count_contents() === 0) {
     return;
@@ -28,7 +28,7 @@ if (empty($extra)) {
 <div id="shippingEstimatorContent" class="mx-auto">
     <a id="seView"></a>
 <?php
-if (SHOW_SHIPPING_ESTIMATOR_BUTTON === '2') {
+if ($tplSetting->SHOW_SHIPPING_ESTIMATOR_BUTTON === '2') {
 ?>
     <h2 class="text-center"><?= CART_SHIPPING_OPTIONS ?></h2>
 <?php
@@ -62,7 +62,7 @@ if (zen_is_logged_in() && !zen_in_guest_checkout()) {
             <address><?= zen_address_format($order->delivery['format_id'], $order->delivery, 1, ' ', '<br>') ?></address>
 <?php
 } elseif ($_SESSION['cart']->get_content_type() !== 'virtual') {
-    $flag_show_pulldown_states = (ACCOUNT_STATE_DRAW_INITIAL_DROPDOWN === 'true');
+    $flag_show_pulldown_states = (zen_config('ACCOUNT_STATE_DRAW_INITIAL_DROPDOWN') === 'true');
 ?>
             <label class="inputLabel" for="country"><?= ENTRY_COUNTRY ?></label>
             <?= zen_get_country_list('zone_country_id', $selected_country, 'id="country"' . (($flag_show_pulldown_states === true) ? ' onchange="update_zone(this.form);"' : '')) ?>
@@ -99,7 +99,7 @@ if (zen_is_logged_in() && !zen_in_guest_checkout()) {
 if ($_SESSION['cart']->get_content_type() === 'virtual') {
     echo CART_SHIPPING_METHOD_FREE_TEXT .  ' ' . CART_SHIPPING_METHOD_ALL_DOWNLOADS;
 } elseif ($free_shipping == 1) {
-    echo sprintf(FREE_SHIPPING_DESCRIPTION, $currencies->format(MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER));
+    echo sprintf(FREE_SHIPPING_DESCRIPTION, $currencies->format(zen_config('MODULE_ORDER_TOTAL_SHIPPING_FREE_SHIPPING_OVER')));
 } else {
     if (!zen_is_logged_in() || zen_in_guest_checkout()) {
 ?>

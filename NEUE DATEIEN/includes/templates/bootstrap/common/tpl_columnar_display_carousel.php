@@ -67,14 +67,14 @@ if ($products_per_row_medium === 0) {
 // *must* evenly divide into 12 for the Bootstrap grid system's
 // classes to be determined.
 //
-if (((12 / $products_per_row_large) % 12) !== 0) {
+if ((12 % $products_per_row_large) !== 0) {
     while (!in_array($products_per_row_large, [1, 2, 3, 4, 6, 12])) {
         $products_per_row_large--;
     }
 }
 $carousel_class_lg = 'col-lg-' . (12 / $products_per_row_large);
 
-if (((12 / $products_per_row_medium) % 12) !== 0) {
+if ((12 % $products_per_row_medium) !== 0) {
     while (!in_array($products_per_row_medium, [1, 2, 3, 4, 6, 12])) {
         $products_per_row_medium--;
     }
@@ -110,11 +110,11 @@ foreach ($list_box_contents as $row => $cols) {
 }
 ?>
             </div>
-            <a class="carousel-control-prev d-inline-block text-left" href="#centerbox-carousel-<?= $centerbox_carousel_count?>" role="button" data-slide="prev">
+            <a class="carousel-control-prev d-inline-block text-left" role="button" data-slide="prev" data-target="#centerbox-carousel-<?= $centerbox_carousel_count ?>">
                 <span><i class="fas fa-lg fa-chevron-left" aria-hidden="true"></i></span>
                 <span class="sr-only"><?= BUTTON_PREVIOUS_ALT ?></span>
             </a>
-            <a class="carousel-control-next d-inline-block text-right" href="#centerbox-carousel-<?= $centerbox_carousel_count?>" role="button" data-slide="next">
+            <a class="carousel-control-next d-inline-block text-right" role="button" data-slide="next" data-target="#centerbox-carousel-<?= $centerbox_carousel_count ?>">
                 <span><i class="fas fa-lg fa-chevron-right" aria-hidden="true"></i></span>
                 <span class="sr-only"><?= BUTTON_NEXT_ALT ?></span>
             </a>
@@ -154,7 +154,7 @@ function multiCarousel<?= $centerbox_carousel_count ?>()
             $('#<?= $centerbox_carousel_wrapper_id ?> .carousel-inner .carousel-item:first').addClass('active');
         } while ($('#<?= $centerbox_carousel_wrapper_id ?> .carousel-inner').children('.carousel-grid').length);
     }
-    $('#<?= $centerbox_carousel_wrapper_id ?> .carousel-item').matchHeight();
+  
 }
 
 $(window).on('load resize', function() {

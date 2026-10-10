@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: upcoming_products.php 2024-10-26 15:14:16Z webchills $
+ * @version $Id: upcoming_products.php 2026-10-10 15:14:16Z webchills $
  */
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
@@ -22,10 +22,10 @@ $display_limit = zen_get_upcoming_date_range();
 
 $limit_clause =
     "  ORDER BY " .
-    (EXPECTED_PRODUCTS_FIELD === 'date_expected' ? 'date_expected' : 'products_name') .
+    ($tplSetting->EXPECTED_PRODUCTS_FIELD === 'date_expected' ? 'date_expected' : 'products_name') .
     ' ' .
-    (EXPECTED_PRODUCTS_SORT === 'asc' ? 'ASC' : 'DESC') .
-    " LIMIT " . (int)MAX_DISPLAY_UPCOMING_PRODUCTS;
+    ($tplSetting->EXPECTED_PRODUCTS_SORT === 'asc' ? 'ASC' : 'DESC') .
+    " LIMIT " . (int)$tplSetting->MAX_DISPLAY_UPCOMING_PRODUCTS;
 
 if ((($manufacturers_id > 0 && empty($_GET['filter_id'])) || !empty($_GET['music_genre_id']) || !empty($_GET['record_company_id'])) || empty($new_products_category_id)) {
     $expected_query =

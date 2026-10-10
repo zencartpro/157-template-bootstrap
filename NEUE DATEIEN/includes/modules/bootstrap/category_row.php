@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: category_row.php 2024-10-26 15:14:16Z webchills $
+ * @version $Id: category_row.php 2026-10-10 15:14:16Z webchills $
  */
 if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
@@ -17,9 +17,7 @@ if (!defined('IS_ADMIN_FLAG')) {
 // Since the template still supports zc157, set the following definition if
 // not already available.
 //
-if (!defined('TOPMOST_CATEGORY_PARENT_ID')) {
-    define('TOPMOST_CATEGORY_PARENT_ID', '0');
-}
+zen_define_default('TOPMOST_CATEGORY_PARENT_ID', '0');
 
 $num_categories = $categories->RecordCount();
 
@@ -32,7 +30,7 @@ if (empty($num_categories)) {
     return;
 }
 
-$columns_per_row = defined('MAX_DISPLAY_CATEGORIES_PER_ROW') ? (int)MAX_DISPLAY_CATEGORIES_PER_ROW : 0;
+$columns_per_row = (int)$tplSetting->MAX_DISPLAY_CATEGORIES_PER_ROW;
 $category_row_layout_style = $columns_per_row > 1 ? 'columns' : 'fluid';
 
 // if in fixed-columns mode, calculate column width
@@ -102,7 +100,7 @@ foreach ($categories as $next_category) {
         'params' => 'class="categoryListBoxContents card mb-3 p-3 text-center"',
         'text' =>
             '<a href="' . zen_href_link(FILENAME_DEFAULT, $cPath_new) . '">' .
-                zen_image(DIR_WS_IMAGES . $next_category['categories_image'], $next_category['categories_name'], SUBCATEGORY_IMAGE_WIDTH, SUBCATEGORY_IMAGE_HEIGHT, 'loading="lazy"') .
+                zen_image(DIR_WS_IMAGES . $next_category['categories_image'], $next_category['categories_name'], $tplSetting->SUBCATEGORY_IMAGE_WIDTH, $tplSetting->SUBCATEGORY_IMAGE_HEIGHT, 'loading="lazy"') .
                 '<br>' .
                 $next_category['categories_name'] .
             '</a>',

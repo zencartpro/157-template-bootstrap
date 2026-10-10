@@ -1,19 +1,19 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_site_map_default.php 2024-10-26 17:22:39Z webchills $
+ * @version $Id: tpl_site_map_default.php 2026-10-10 17:22:39Z webchills $
  */
 ?>
 <div id="siteMapDefault" class="centerColumn">
     <h1 id="siteMapDefault-pageHeading" class="pageHeading"><?= HEADING_TITLE ?></h1>
 <?php
-if (DEFINE_SITE_MAP_STATUS === '1' || DEFINE_SITE_MAP_STATUS === '2') {
+if ($tplSetting->DEFINE_SITE_MAP_STATUS === '1') {
 ?>
     <div id="siteMapDefault-defineContent" class="defineContent">
 <?php
@@ -30,7 +30,13 @@ echo $zen_SiteMapTree->buildTree();
 ?>
     <ul class="list-group">
 <?php
-if (SHOW_ACCOUNT_LINKS_ON_SITE_MAP === 'Yes') {
+if (!empty($flag_show_about_us_sidebox_link)) {
+?>
+        <li class="list-group-item"><a href="<?= zen_href_link(FILENAME_ABOUT_US) ?>"><?= BOX_INFORMATION_ABOUT_US ?></a></li>
+<?php
+}
+
+if ($tplSetting->SHOW_ACCOUNT_LINKS_ON_SITE_MAP === 'Yes') {
 ?>
         <li class="list-group-item"><a href="<?= zen_href_link(FILENAME_ACCOUNT, '', 'SSL') ?>"><?= PAGE_ACCOUNT ?></a>
             <ul class="list-group">
@@ -52,62 +58,72 @@ if (SHOW_ACCOUNT_LINKS_ON_SITE_MAP === 'Yes') {
         <li class="list-group-item"><?= BOX_HEADING_INFORMATION ?>
             <ul class="list-group">
 <?php
-if (DEFINE_SHIPPINGINFO_STATUS <= '1') {
+if ($tplSetting->DEFINE_SHIPPINGINFO_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_SHIPPING) . '">' . BOX_INFORMATION_SHIPPING . '</a>' ?></li>
 <?php
 }
-if (DEFINE_PRIVACY_STATUS <= '1') {
+
+if ($tplSetting->DEFINE_PRIVACY_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_PRIVACY) . '">' . BOX_INFORMATION_PRIVACY . '</a>' ?></li>
 <?php
 }
-if (DEFINE_CONDITIONS_STATUS <= '1') {
+if ($tplSetting->DEFINE_CONDITIONS_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_CONDITIONS) . '">' . BOX_INFORMATION_CONDITIONS . '</a>' ?></li>
 <?php
 }
-if (defined('FILENAME_ACCESSIBILITY') && (!empty($flag_show_accessibility_sidebox_link))) {
+
+if (defined('FILENAME_ACCESSIBILITY') && !empty($flag_show_accessibility_sidebox_link)) {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_ACCESSIBILITY) . '">' . BOX_INFORMATION_ACCESSIBILITY . '</a>' ?></li>
 <?php
 }
-if (DEFINE_CONTACT_US_STATUS <= '1') {
+
+if ($tplSetting->DEFINE_CONTACT_US_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_CONTACT_US, '', 'SSL') . '">' . BOX_INFORMATION_CONTACT . '</a>' ?></li>
 <?php
 }
+
 if (!empty($external_bb_url) && !empty($external_bb_text)) {
 ?>
                 <li class="list-group-item"><?= '<a href="' . $external_bb_url . '" rel="noopener" target="_blank">' . $external_bb_text . '</a>' ?></li>
 <?php
 }
-if (defined('MODULE_ORDER_TOTAL_GV_STATUS') && MODULE_ORDER_TOTAL_GV_STATUS === 'true') {
+
+if (zen_config('MODULE_ORDER_TOTAL_GV_STATUS') === 'true') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_GV_FAQ) . '">' . BOX_INFORMATION_GV . '</a>' ?></li>
 <?php
 }
-if (defined('MODULE_ORDER_TOTAL_COUPON_STATUS') && MODULE_ORDER_TOTAL_COUPON_STATUS === 'true') {
+
+if (zen_config('MODULE_ORDER_TOTAL_COUPON_STATUS') === 'true') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_DISCOUNT_COUPON) . '">' . BOX_INFORMATION_DISCOUNT_COUPONS . '</a>' ?></li>
 <?php
 }
-if (SHOW_NEWSLETTER_UNSUBSCRIBE_LINK === 'true') {
+
+if (zen_config('SHOW_NEWSLETTER_UNSUBSCRIBE_LINK') === 'true') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_UNSUBSCRIBE) . '">' . BOX_INFORMATION_UNSUBSCRIBE . '</a>' ?></li>
 <?php
 }
-if (DEFINE_PAGE_2_STATUS <= '1') {
+
+if ($tplSetting->DEFINE_PAGE_2_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_PAGE_2) . '">' . BOX_INFORMATION_PAGE_2 . '</a>' ?></li>
 <?php
 }
-if (DEFINE_PAGE_3_STATUS <= '1') {
+
+if ($tplSetting->DEFINE_PAGE_3_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_PAGE_3) . '">' . BOX_INFORMATION_PAGE_3 . '</a>' ?></li>
 <?php
 }
-if (DEFINE_PAGE_4_STATUS <= '1') {
+
+if ($tplSetting->DEFINE_PAGE_4_STATUS <= '1') {
 ?>
                 <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_PAGE_4) . '">' . BOX_INFORMATION_PAGE_4 . '</a>' ?></li>
 <?php

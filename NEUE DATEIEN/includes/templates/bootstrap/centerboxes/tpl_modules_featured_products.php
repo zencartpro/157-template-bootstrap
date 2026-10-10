@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/webchills
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_featured_products.php 2024-10-26 16:14:16Z webchills $
+ * @version $Id: tpl_modules_featured_products.php 2026-10-10 16:14:16Z webchills $
  */
 $zc_show_featured = false;
 require DIR_WS_MODULES . zen_get_module_directory('centerboxes/' . FILENAME_FEATURED_PRODUCTS_MODULE);
@@ -22,7 +22,7 @@ $card_body_id = 'featuredCenterbox-card-body';
 ?>
 <!-- bof: featured products  -->
 <?php
-if (BS4_FEATURED_CENTERBOX_CAROUSEL === '') {
+if ($tplSetting->BS4_FEATURED_CENTERBOX_CAROUSEL === '') {
     // -----
     // If not rendering as a carousel, output the columnar display.
     //
@@ -31,7 +31,7 @@ if (BS4_FEATURED_CENTERBOX_CAROUSEL === '') {
     // -----
     // Otherwise, rendering as a carousel.
     //
-    $carousel_config = BS4_FEATURED_CENTERBOX_CAROUSEL;
+    $carousel_config = $tplSetting->BS4_FEATURED_CENTERBOX_CAROUSEL;
     require $template->get_template_dir('tpl_columnar_display_carousel.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/tpl_columnar_display_carousel.php';
 }
 ?>

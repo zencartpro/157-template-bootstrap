@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_header.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_header.php 2026-10-10 15:22:39Z webchills $
  */
 // -----
 // Quick return if the header's been disabled.
@@ -37,14 +37,14 @@ if (!empty($flag_disable_header)) {
 if (zen_is_logged_in() && !zen_in_guest_checkout()) {
 ?>
                         <li class="nav-item" title="<?= HEADER_TITLE_LOGOFF ?>">
-                            <a class="nav-link" href="<?= zen_href_link(FILENAME_LOGOFF, '', 'SSL') ?>"><?= HEADER_TITLE_LOGOFF ?></a>
+                            <a class="nav-link" href="<?= zen_href_link(FILENAME_LOGOFF, '', 'SSL') ?>"><i class="fas fa-sign-out-alt"></i> <?= HEADER_TITLE_LOGOFF ?></a>
                         </li>
                         <li class="nav-item" title="<?= HEADER_TITLE_MY_ACCOUNT ?>">
-                            <a class="nav-link" href="<?= zen_href_link(FILENAME_ACCOUNT, '', 'SSL') ?>"><?= HEADER_TITLE_MY_ACCOUNT ?></a>
+                            <a class="nav-link" href="<?= zen_href_link(FILENAME_ACCOUNT, '', 'SSL') ?>"><i class="fa-solid fa-circle-user"></i> <?= HEADER_TITLE_MY_ACCOUNT ?></a>
                         </li>
 <?php
 } else {
-    if (STORE_STATUS === '0') {
+    if (zen_config('STORE_STATUS') === '0') {
 ?>
                         <li class="nav-item" title="<?= HEADER_TITLE_LOGIN ?>">
                             <a class="nav-link" href="<?= zen_href_link(FILENAME_LOGIN, '', 'SSL') ?>">
@@ -58,10 +58,10 @@ if (zen_is_logged_in() && !zen_in_guest_checkout()) {
 if ($_SESSION['cart']->count_contents() > 0) {
 ?>
                         <li class="nav-item" title="<?= HEADER_TITLE_CART_CONTENTS ?>">
-                            <a class="nav-link" href="<?= zen_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') ?>"><?= HEADER_TITLE_CART_CONTENTS ?></a>
+                            <a class="nav-link" href="<?= zen_href_link(FILENAME_SHOPPING_CART, '', 'NONSSL') ?>"><i class="fa-solid fa-cart-shopping"></i> <?= HEADER_TITLE_CART_CONTENTS ?></a>
                         </li>
                         <li class="nav-item" title="<?= HEADER_TITLE_CHECKOUT ?>">
-                            <a class="nav-link" href="<?= zen_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') ?>"><?= HEADER_TITLE_CHECKOUT ?></a>
+                            <a class="nav-link" href="<?= zen_href_link(FILENAME_CHECKOUT_SHIPPING, '', 'SSL') ?>"><i class="fa-solid fa-credit-card"></i> <?= HEADER_TITLE_CHECKOUT ?></a>
                         </li>
 <?php
 }
@@ -90,7 +90,7 @@ require DIR_WS_MODULES . zen_get_module_sidebox_directory('search_header.php');
     <div id="logoWrapper">
         <div id="logo" class="row align-items-center px-3 pb-3">
 <?php
-$tagline_banner_section_present = ((SHOW_BANNERS_GROUP_SET2 !== '' && $banner = zen_banner_exists('dynamic', SHOW_BANNERS_GROUP_SET2)) || HEADER_SALES_TEXT !== '');
+$tagline_banner_section_present = (($tplSetting->SHOW_BANNERS_GROUP_SET2 !== '' && $banner = zen_banner_exists('dynamic', $tplSetting->SHOW_BANNERS_GROUP_SET2)) || HEADER_SALES_TEXT !== '');
 $sales_text_class = ($tagline_banner_section_present === true) ? 'col-sm-4' : 'col-sm-12';
 ?>
             <div class="<?= $sales_text_class ?>">
@@ -109,16 +109,16 @@ if ($tagline_banner_section_present === true) {
 <?php
     }
 
-    if (SHOW_BANNERS_GROUP_SET2 !== '' && $banner !== false) {
+    if ($tplSetting->SHOW_BANNERS_GROUP_SET2 !== '' && $banner !== false) {
         // -----
         // Set variables used by the banner-carousel.
         //
-        $find_banners = zen_build_banners_group(SHOW_BANNERS_GROUP_SET2);
+        $find_banners = zen_build_banners_group($tplSetting->SHOW_BANNERS_GROUP_SET2);
         $banner_group = 2;
 ?>
                 <div class="zca-banner bannerTwo rounded pt-1">
 <?php
-        if (ZCA_ACTIVATE_BANNER_TWO_CAROUSEL === 'true') {
+        if ($tplSetting->ZCA_ACTIVATE_BANNER_TWO_CAROUSEL === 'true') {
             require $template->get_template_dir('tpl_zca_banner_carousel.php', DIR_WS_TEMPLATE, $current_page_base, 'common') . '/tpl_zca_banner_carousel.php';
         } else {
             echo zen_display_banner('static', $banner);
@@ -156,7 +156,7 @@ if (!empty($_GET['info_message'])) {
 
 <!--bof-header ezpage links-->
 <?php
-if (EZPAGES_STATUS_HEADER === '1' || (EZPAGES_STATUS_HEADER === '2' && zen_is_whitelisted_admin_ip())) {
+if ($tplSetting->EZPAGES_STATUS_HEADER === '1' || ($tplSetting->EZPAGES_STATUS_HEADER === '2' && zen_is_whitelisted_admin_ip())) {
     require $template->get_template_dir('tpl_ezpages_bar_header.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_ezpages_bar_header.php';
 }
 ?>

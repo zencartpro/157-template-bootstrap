@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_bootstrap_images.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_bootstrap_images.php 2026-10-10 15:22:39Z webchills $
  */
 if (!defined('IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE')) {
     define('IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE', 'Yes');
@@ -19,8 +19,8 @@ if (!defined('IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE')) {
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="bootStrapImagesModalLabel"><?php echo $products_name; ?></h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="<?php echo TEXT_MODAL_CLOSE; ?>"><span aria-hidden="true">&times;</span></button>
+                <h5 class="modal-title" id="bootStrapImagesModalLabel"><?= $products_name ?></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="<?= TEXT_MODAL_CLOSE ?>"><span aria-hidden="true">&times;</span></button>
             </div>
             <div class="modal-body">
                 <div class="container">
@@ -33,7 +33,7 @@ if (!defined('IMAGE_ADDITIONAL_DISPLAY_LINK_EVEN_WHEN_NO_LARGE')) {
 <?php
 require DIR_WS_MODULES . zen_get_module_directory('main_product_image.php');
 ?>
-                                    <div class="active item carousel-item" data-slide-number="0"><?php echo zen_image($products_image_large); ?></div>
+                                    <div class="active item carousel-item" data-slide-number="0"><?= zen_image($products_image_large) ?></div>
 <?php
 require DIR_WS_MODULES . zen_get_module_directory('bootstrap_slide_additional_images.php');
 
@@ -56,8 +56,12 @@ if ($flag_show_product_info_additional_images !== '0' && $num_images > 0) {
 }
 ?>
                                     <div id="carousel-btn-toolbar" class="btn-toolbar justify-content-between p-3" role="toolbar">
-                                        <a class="carousel-control-prev left pt-3" href="#productImagesCarousel" data-slide="prev"><i class="fas fa-chevron-left" title="<?php echo BUTTON_PREVIOUS_ALT;?>"></i></a>
-                                        <a class="carousel-control-next right pt-3" href="#productImagesCarousel" data-slide="next"><i class="fas fa-chevron-right" title="<?php echo BUTTON_NEXT_ALT;?>"></i></a>
+                                        <a class="carousel-control-prev left pt-3" data-slide="prev" data-target="#productImagesCarousel">
+                                            <i class="fas fa-chevron-left" title="<?= BUTTON_PREVIOUS_ALT ?>"></i>
+                                        </a>
+                                        <a class="carousel-control-next right pt-3" data-slide="next" data-target="#productImagesCarousel">
+                                            <i class="fas fa-chevron-right" title="<?= BUTTON_NEXT_ALT ?>"></i>
+                                        </a>
                                     </div>
                                 </div>
                                 <!-- main slider carousel nav controls -->
@@ -68,7 +72,7 @@ if ($flag_show_product_info_additional_images !== '0' && $num_images > 0) {
 <?php
 require DIR_WS_MODULES . zen_get_module_directory('main_product_image.php');
 ?>
-                                            <?php echo zen_image($products_image_large, $products_name, SMALL_IMAGE_WIDTH, SMALL_IMAGE_HEIGHT); ?>
+                                            <?= zen_image($products_image_large, $products_name, $tplSetting->SMALL_IMAGE_WIDTH, $tplSetting->SMALL_IMAGE_HEIGHT) ?>
                                         </a>
                                     </li>
 <?php
@@ -99,7 +103,7 @@ if ($flag_show_product_info_additional_images !== '0' && $num_images > 0) {
                     <!--/main slider carousel-->
                 </div>
             </div>
-            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal"><?php echo TEXT_MODAL_CLOSE; ?></button></div>
+            <div class="modal-footer"><button type="button" class="btn btn-secondary" data-dismiss="modal"><?= TEXT_MODAL_CLOSE ?></button></div>
         </div>
     </div>
 </div>

@@ -1,20 +1,20 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_offcanvas_menu.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_offcanvas_menu.php 2026-10-10 15:22:39Z webchills $
  */
 ?>
 <li class="nav-item dropdown d-lg-none">
     <a class="nav-link dropdown-toggle" href="#" id="categoryDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <?= BOX_HEADING_CATEGORIES ?>
     </a>
-    <div class="dropdown-menu" aria-labelledby="categoryDropdown">
+    <div class="dropdown-menu">
         <ul class="m-0 p-0">
 <?php
 $categories_tab = $db->Execute(
@@ -41,19 +41,19 @@ foreach ($categories_tab as $category_tab) {
 ?>
         </ul>
 <?php
-if (SHOW_CATEGORIES_BOX_SPECIALS === 'true') {
+if ($tplSetting->SHOW_CATEGORIES_BOX_SPECIALS === 'true') {
     $show_this = $db->Execute("SELECT s.products_id FROM " . TABLE_SPECIALS . " s WHERE s.status = 1 LIMIT 1");
     if (!$show_this->EOF) {
 ?>
         <div class="dropdown-divider"></div>
-        <a class="dropdown-item" href="<?= zen_href_link(FILENAME_SPECIALS) ?>'">
+        <a class="dropdown-item" href="<?= zen_href_link(FILENAME_SPECIALS) ?>">
             <?= CATEGORIES_BOX_HEADING_SPECIALS ?>
         </a>
 <?php
     }
 }
 
-if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW === 'true') {
+if ($tplSetting->SHOW_CATEGORIES_BOX_PRODUCTS_NEW === 'true') {
       // display limits
     $display_limit = zen_get_new_date_range();
     $show_this = $db->Execute("SELECT p.products_id FROM " . TABLE_PRODUCTS . " p WHERE p.products_status = 1 " . $display_limit . " LIMIT 1");
@@ -67,7 +67,7 @@ if (SHOW_CATEGORIES_BOX_PRODUCTS_NEW === 'true') {
     }
 }
 
-if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS === 'true') {
+if ($tplSetting->SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS === 'true') {
     $show_this = $db->Execute("SELECT products_id FROM " . TABLE_FEATURED . " WHERE status = 1 LIMIT 1");
     if (!$show_this->EOF) {
 ?>
@@ -79,7 +79,7 @@ if (SHOW_CATEGORIES_BOX_FEATURED_PRODUCTS === 'true') {
     }
 }
 
-if (SHOW_CATEGORIES_BOX_PRODUCTS_ALL === 'true') {
+if ($tplSetting->SHOW_CATEGORIES_BOX_PRODUCTS_ALL === 'true') {
 ?>
         <div class="dropdown-divider"></div>
         <a class="dropdown-item" href="<?= zen_href_link(FILENAME_PRODUCTS_ALL) ?>">
@@ -176,7 +176,7 @@ if (!$more_information_sidebox->EOF) {
 }
 
 // test if ez-pages links should display
-if (EZPAGES_STATUS_SIDEBOX === '1' || (EZPAGES_STATUS_SIDEBOX === '2' && zen_is_whitelisted_admin_ip())) {
+if ($tplSetting->EZPAGES_STATUS_SIDEBOX === '1' || ($tplSetting->EZPAGES_STATUS_SIDEBOX === '2' && zen_is_whitelisted_admin_ip())) {
     if (isset($var_linksList)) {
         unset($var_linksList);
     }
@@ -201,9 +201,9 @@ if (EZPAGES_STATUS_SIDEBOX === '1' || (EZPAGES_STATUS_SIDEBOX === '2' && zen_is_
     if (!$page_query->EOF) {
         $page_query_list_sidebox = [];
         foreach ($page_query as $next_page) {
-            $next_page_entry = array(
+            $next_page_entry = [
                 'name' => htmlspecialchars($next_page['pages_title'], ENT_COMPAT, CHARSET, true),
-            );
+            ];
             
             switch (true) {
                 // external link new window or same window
@@ -248,7 +248,7 @@ if (EZPAGES_STATUS_SIDEBOX === '1' || (EZPAGES_STATUS_SIDEBOX === '2' && zen_is_
     <a class="nav-link dropdown-toggle" href="#" id="ezpagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <?= BOX_HEADING_EZPAGES ?>
     </a>
-    <div class="dropdown-menu mb-2" aria-labelledby="ezpagesDropdown">
+    <div class="dropdown-menu mb-2">
         <ul class="m-0 p-0">
 <?php
         foreach ($page_query_list_sidebox as $next_entry) {

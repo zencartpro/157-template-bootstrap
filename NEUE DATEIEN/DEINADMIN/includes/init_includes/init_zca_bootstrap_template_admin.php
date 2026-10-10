@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2024 rbarbour/lat9/drbyte/webchills 
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: init.zca_bootstrap_template_admin.php 2024-11-04 16:22:39Z webchills $
+ * @version $Id: init.zca_bootstrap_template_admin.php 2026-10-10 16:22:39Z webchills $
  */
 // -----
 // Configuration initialization for the ZCAdditions' bootstrap template.
@@ -19,7 +19,7 @@ if (!defined('IS_ADMIN_FLAG')) {
     die('Illegal Access');
 }
 
-define('ZCA_BOOTSTRAP_CURRENT_VERSION', '3.7.4');
+define('ZCA_BOOTSTRAP_CURRENT_VERSION', '3.8.1');
 
 // -----
 // If a SuperUser admin is logged in, check to see that all of the new configuration settings required
@@ -44,7 +44,7 @@ if (zen_is_superuser()) {
     // -----
     // If not yet installed (or pre-v3.2.0 version installed), perform the initial installation.
     //
-    if (!defined('ZCA_BOOTSTRAP_VERSION')) {
+    if (zen_config('ZCA_BOOTSTRAP_VERSION') === null) {
         require DIR_WS_INCLUDES . 'init_includes/init_zca_bootstrap_template_admin_install.php';
     }
 
@@ -52,7 +52,7 @@ if (zen_is_superuser()) {
     // Next, update the description of a couple of the built-in settings to let the store owner know that
     // they're not applicable/used when the ZCA bootstrap template is active.
     //
-    if (ZCA_BOOTSTRAP_VERSION === '0.0.0') {
+    if (zen_config('ZCA_BOOTSTRAP_VERSION') === '0.0.0') {
         $db->Execute(
             "UPDATE " . TABLE_CONFIGURATION . "
                 SET configuration_description = 'Width of the Left Column Boxes<br>px may be included<br>Default = 150px<br><b>This configuration has no affect with the ZCA Responsive Components or ZCA Bootstrap Themes</b>',
@@ -83,7 +83,7 @@ if (zen_is_superuser()) {
     // Next, if the currently-installed version is different from the current version of the
     // template, perform any updates required.
     //
-    if (ZCA_BOOTSTRAP_VERSION !== ZCA_BOOTSTRAP_CURRENT_VERSION) {
+    if (zen_config('ZCA_BOOTSTRAP_VERSION') !== ZCA_BOOTSTRAP_CURRENT_VERSION) {
         require DIR_WS_INCLUDES . 'init_includes/init_zca_bootstrap_template_admin_update.php';
     }
 }
@@ -92,11 +92,11 @@ if (zen_is_superuser()) {
 // If the current template has just been CHANGED to the ZCA bootstrap (or a clone), ensure that the
 // Zen Cart configuration values required contain the recommended values for the template (if existing).
 //
-// The ZCA Bootstrap template (and its clones) contains the storefront file /includes/languages/english/extra_definitions/YT/zca_bootstrap_id.php,
+// The ZCA Bootstrap template (and its clones) contains the storefront file /includes/languages/english/extra_definitions/YT/lang.zca_bootstrap_id.php,
 // where YT is the name of the template.  Use the PRESENCE of that file to identify a bootstrap template.
 //
 if ($current_page === (FILENAME_TEMPLATE_SELECT . '.php') && isset($_GET['action'], $_POST['ln']) && $_GET['action'] === 'save') {
-    if (file_exists(DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'german/extra_definitions/' . $_POST['ln'] . '/zca_bootstrap_id.php')) {
+    if (is_file(DIR_FS_CATALOG . DIR_WS_LANGUAGES . 'german/extra_definitions/' . $_POST['ln'] . '/zca_bootstrap_id.php')) {
         // -----
         // Finally, compare the Zen Cart built-in settings to see if they're different from the ZCA Bootstrap
         // recommendations.  If so, create a log file identifying what's different and let the current admin

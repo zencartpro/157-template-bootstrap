@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_product_info_display.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_product_info_display.php 2026-10-10 15:22:39Z webchills $
  */
 // -----
 // This variable, added in v3.7.0, enables all product_xx_info pages' templates to
@@ -33,7 +33,7 @@ if ($module_show_categories !== '0') {
 <?php
 }
 
-if (PRODUCT_INFO_PREVIOUS_NEXT === '1' || PRODUCT_INFO_PREVIOUS_NEXT === '3') {
+if (in_array($tplSetting->PRODUCT_INFO_PREVIOUS_NEXT, ['1', '3'], true)) {
 ?>
     <!--bof Prev/Next top position -->
     <div id="<?= $html_id_prefix ?>-productPrevNextTop" class="productPrevNextTop">
@@ -68,7 +68,7 @@ if (!empty($products_image)) {
 /**
  * display the products additional images in a model carousel
  */
-if (PRODUCT_INFO_SHOW_BOOTSTRAP_MODAL_POPUPS === 'Yes' && PRODUCT_INFO_SHOW_BOOTSTRAP_MODAL_SLIDE === '1') {
+if ($tplSetting->PRODUCT_INFO_SHOW_BOOTSTRAP_MODAL_POPUPS === 'Yes' && $tplSetting->PRODUCT_INFO_SHOW_BOOTSTRAP_MODAL_SLIDE === '1') {
     require $template->get_template_dir('tpl_bootstrap_images.php', DIR_WS_TEMPLATE, $current_page_base, 'modalboxes') . '/tpl_bootstrap_images.php';
 
     if ($num_images > 0) {
@@ -175,14 +175,19 @@ if (isset($product_info_display_extra)) {
             <!--bof Attributes Module -->
 <?php
 $one_time = '';
-$display_price_bottom = true;
+$display_price_bottom = (zen_get_products_allow_add_to_cart((int)$_GET['products_id']) === 'Y');
 if ($pr_attr->fields['total'] > 0) {
     if ($show_onetime_charges_description === true) {
         $one_time = '<small>' . TEXT_ONETIME_CHARGE_SYMBOL . TEXT_ONETIME_CHARGE_DESCRIPTION . '</small><br>';
     }
 
-    $display_price_top = (BS4_PRICING_LOCATION === 'Both' || BS4_PRICING_LOCATION === 'Above Only');
-    $display_price_bottom = (BS4_PRICING_LOCATION === 'Both' || BS4_PRICING_LOCATION === 'Below Only');
+    if (zen_get_products_allow_add_to_cart((int)$_GET['products_id']) === 'N') {
+        $display_price_top = false;
+        $display_price_bottom = false;
+    } else {
+        $display_price_top = in_array($tplSetting->BS4_PRICING_LOCATION, ['Both', 'Above Only'], true);
+        $display_price_bottom = in_array($tplSetting->BS4_PRICING_LOCATION, ['Both', 'Below Only'], true);
+    }
 ?>
             <!--bof Product Price block above Attributes -->
 <?php
@@ -254,7 +259,7 @@ if ($display_price_bottom === true) {
 ?>
             <!--bof Add to Cart Box -->
 <?php
-if (CUSTOMERS_APPROVAL === '3' && TEXT_LOGIN_FOR_PRICE_BUTTON_REPLACE_SHOWROOM === '') {
+if (zen_config('CUSTOMERS_APPROVAL') === '3' && TEXT_LOGIN_FOR_PRICE_BUTTON_REPLACE_SHOWROOM === '') {
   // do nothing
 } else {
     $display_qty = ($flag_show_product_info_in_cart_qty === '1' && $_SESSION['cart']->in_cart($_GET['products_id'])) ? '<p>' . PRODUCTS_ORDER_QTY_TEXT_IN_CART . $_SESSION['cart']->get_quantity($_GET['products_id']) . '</p>' : '';
@@ -274,17 +279,17 @@ if (CUSTOMERS_APPROVAL === '3' && TEXT_LOGIN_FOR_PRICE_BUTTON_REPLACE_SHOWROOM =
                     zen_image_submit(BUTTON_IMAGE_IN_CART, BUTTON_IN_CART_ALT) .
                 '</div>' .
             '</div>';
-
-        if (zen_get_products_quantity_min_units_display((int)$_GET['products_id']) > 0) {
-            $the_button .=
-                '<div id="min-max-units" class="d-flex justify-content-around">' .
-                    zen_get_products_quantity_min_units_display((int)$_GET['products_id']) .
-                '</div>'; 
-        }
     }
     $display_button = zen_get_buy_now_button($_GET['products_id'], $the_button);
 
     if ($display_qty !== '' || !empty($display_button)) {
+        if (zen_get_products_quantity_min_units_display((int)$_GET['products_id']) > 0) {
+?>
+                <div id="min-max-units" class="d-flex justify-content-around mb-2">
+                    <?= zen_get_products_quantity_min_units_display((int)$_GET['products_id']) ?>
+                </div>
+<?php
+        }
 ?>
             <!--bof add to cart card-->
             <div id="addToCart-card" class="card mb-3">
@@ -304,7 +309,7 @@ if (CUSTOMERS_APPROVAL === '3' && TEXT_LOGIN_FOR_PRICE_BUTTON_REPLACE_SHOWROOM =
 
     <div id="<?= $html_id_prefix ?>-moduledDisplayRow" class="row">
 <?php
-if (PRODUCT_INFO_SHOW_NOTIFICATIONS_BOX === '1') {
+if ($tplSetting->PRODUCT_INFO_SHOW_NOTIFICATIONS_BOX === '1') {
 ?>
         <!--bof Products Notification Module-->
         <div id="<?= $html_id_prefix ?>-moduleDisplayColLeft" class="col-sm">
@@ -314,7 +319,7 @@ if (PRODUCT_INFO_SHOW_NOTIFICATIONS_BOX === '1') {
 <?php
 }
 
-if (PRODUCT_INFO_SHOW_MANUFACTURER_BOX === '1') {
+if ($tplSetting->PRODUCT_INFO_SHOW_MANUFACTURER_BOX === '1') {
 ?>
         <!--bof Products Manufacturer Info Module-->
         <div id="<?= $html_id_prefix ?>-moduleDisplayColRight" class="col-sm">
@@ -367,7 +372,7 @@ if ($products_date_available > date('Y-m-d H:i:s')) {
 
 <!--bof Prev/Next bottom position -->
 <?php
-if (PRODUCT_INFO_PREVIOUS_NEXT === '2' || PRODUCT_INFO_PREVIOUS_NEXT === '3') {
+if (in_array($tplSetting->PRODUCT_INFO_PREVIOUS_NEXT, ['2', '3'], true)) {
 ?>
     <div id="<?= $html_id_prefix ?>-productPrevNextBottom" class="productPrevNextBottom">
         <?php require $template->get_template_dir('/tpl_products_next_previous.php', DIR_WS_TEMPLATE, $current_page_base, 'templates') . '/tpl_products_next_previous.php'; ?>

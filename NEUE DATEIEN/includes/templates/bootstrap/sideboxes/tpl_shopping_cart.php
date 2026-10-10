@@ -1,13 +1,13 @@
 <?php
 /**
- * Bootstrap Template for Zen Cart German 1.5.7i
+ * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018-2024 rbarbour/lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched/webchills  
- * @copyright Copyright 2003-2024 Zen Cart Development Team
+ * Copyright 2018-2026 rbarbour/lat9/drbyte/webchills 
+ * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_shopping_cart.php 2024-10-26 15:22:39Z webchills $
+ * @version $Id: tpl_shopping_cart.php 2026-10-10 15:22:39Z webchills $
  */
 $content = '';
 
@@ -18,7 +18,7 @@ if ($_SESSION['cart']->count_contents() > 0) {
     // zc158 uses a renamed definition for the value, use it if present else use the legacy
     // definition.
     //
-    $quantity_suffix = (defined('CART_QUANTITY_SUFFIX')) ? CART_QUANTITY_SUFFIX : BOX_SHOPPING_CART_DIVIDER;
+    $quantity_suffix = $tplSetting->CART_QUANTITY_SUFFIX ?? $tplSetting->BOX_SHOPPING_CART_DIVIDER;
 
     $content .= '<ul class="list-group list-group-flush">';
     $products = $_SESSION['cart']->get_products();

@@ -10,10 +10,10 @@ if (!(function_exists('zca_bootstrap_active') && zca_bootstrap_active() === true
 // Set the maximum number of products in a page's listing to that defined for
 // the 'products_new' page.
 //
-$product_listing_max_results = MAX_DISPLAY_PRODUCTS_NEW;
+$product_listing_max_results = $tplSetting->MAX_DISPLAY_PRODUCTS_NEW;
 
 // -----
-// Nothing further to do if the all-products' raw SQL query is present (it no longer is in zc200).
+// Nothing further to do if the new-products' raw SQL query is not present (it no longer is as of zc200).
 //
 if (!isset($products_new_query_raw)) {
     return;
@@ -25,13 +25,13 @@ if (!isset($products_new_query_raw)) {
 $listing_sql = str_replace('p.master_categories_id', 'p.master_categories_id, p.manufacturers_id', $products_new_query_raw);
 
 $define_list = [
-    'PRODUCT_LIST_MODEL' => PRODUCT_LIST_MODEL,
-    'PRODUCT_LIST_NAME' => PRODUCT_LIST_NAME,
-    'PRODUCT_LIST_MANUFACTURER' => PRODUCT_LIST_MANUFACTURER,
-    'PRODUCT_LIST_PRICE' => PRODUCT_LIST_PRICE,
-    'PRODUCT_LIST_QUANTITY' => PRODUCT_LIST_QUANTITY,
-    'PRODUCT_LIST_WEIGHT' => PRODUCT_LIST_WEIGHT,
-    'PRODUCT_LIST_IMAGE' => PRODUCT_LIST_IMAGE
+    'PRODUCT_LIST_MODEL' => $tplSetting->PRODUCT_LIST_MODEL,
+    'PRODUCT_LIST_NAME' => $tplSetting->PRODUCT_LIST_NAME,
+    'PRODUCT_LIST_MANUFACTURER' => $tplSetting->PRODUCT_LIST_MANUFACTURER,
+    'PRODUCT_LIST_PRICE' => $tplSetting->PRODUCT_LIST_PRICE,
+    'PRODUCT_LIST_QUANTITY' => $tplSetting->PRODUCT_LIST_QUANTITY,
+    'PRODUCT_LIST_WEIGHT' => $tplSetting->PRODUCT_LIST_WEIGHT,
+    'PRODUCT_LIST_IMAGE' => $tplSetting->PRODUCT_LIST_IMAGE,
 ];
 asort($define_list);
 

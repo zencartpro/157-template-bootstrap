@@ -25,6 +25,10 @@
 	font-size:10px;
 }
 
+#indexDefault-pageHeading{
+	text-align:center;
+}
+
 .contentimage-right{
 	float:right;
 	width:200px;

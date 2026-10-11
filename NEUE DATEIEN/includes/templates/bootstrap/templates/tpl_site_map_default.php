@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_site_map_default.php 2026-10-10 17:22:39Z webchills $
+ * @version $Id: tpl_site_map_default.php 2026-10-11 17:22:39Z webchills $
  */
 ?>
 <div id="siteMapDefault" class="centerColumn">
@@ -29,13 +29,8 @@ if ($tplSetting->DEFINE_SITE_MAP_STATUS === '1') {
 echo $zen_SiteMapTree->buildTree();
 ?>
     <ul class="list-group">
-<?php
-if (!empty($flag_show_about_us_sidebox_link)) {
-?>
-        <li class="list-group-item"><a href="<?= zen_href_link(FILENAME_ABOUT_US) ?>"><?= BOX_INFORMATION_ABOUT_US ?></a></li>
-<?php
-}
 
+<?php 
 if ($tplSetting->SHOW_ACCOUNT_LINKS_ON_SITE_MAP === 'Yes') {
 ?>
         <li class="list-group-item"><a href="<?= zen_href_link(FILENAME_ACCOUNT, '', 'SSL') ?>"><?= PAGE_ACCOUNT ?></a>
@@ -51,7 +46,7 @@ if ($tplSetting->SHOW_ACCOUNT_LINKS_ON_SITE_MAP === 'Yes') {
 <?php
 }
 ?>
-        <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_SEARCH) . '">' . PAGE_ADVANCED_SEARCH . '</a>' ?></li>
+        <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_ADVANCED_SEARCH) . '">' . PAGE_ADVANCED_SEARCH . '</a>' ?></li>
         <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_PRODUCTS_NEW) . '">' . PAGE_PRODUCTS_NEW . '</a>' ?></li>
         <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_SPECIALS) . '">' . PAGE_SPECIALS . '</a>' ?></li>
         <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_REVIEWS) . '">' . PAGE_REVIEWS . '</a>' ?></li>
@@ -75,11 +70,6 @@ if ($tplSetting->DEFINE_CONDITIONS_STATUS <= '1') {
 <?php
 }
 
-if (defined('FILENAME_ACCESSIBILITY') && !empty($flag_show_accessibility_sidebox_link)) {
-?>
-                <li class="list-group-item"><?= '<a href="' . zen_href_link(FILENAME_ACCESSIBILITY) . '">' . BOX_INFORMATION_ACCESSIBILITY . '</a>' ?></li>
-<?php
-}
 
 if ($tplSetting->DEFINE_CONTACT_US_STATUS <= '1') {
 ?>

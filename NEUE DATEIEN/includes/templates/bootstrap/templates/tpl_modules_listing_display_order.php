@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_listing_dispaly_order.php 2026-10-10 17:22:39Z webchills $
+ * @version $Id: tpl_modules_listing_display_order.php 2026-10-11 17:22:39Z webchills $
  */
 if (isset($show_sort_by_on_product_listing) && $show_sort_by_on_product_listing === false) {
     return;
@@ -15,12 +15,12 @@ if (isset($show_sort_by_on_product_listing) && $show_sort_by_on_product_listing 
 
 $disp_order = (int)($disp_order ?? 0);
 if ($disp_order <= 0 || $disp_order > 8) {
-    $disp_order = 8;
+    $disp_order = 1;
 }
 
 // NOTE: to remove a sort order option add a PHP comment around the option to be removed
 $display_order_options = [
-    ['id' => '8', 'text' => TEXT_INFO_SORT_BY_RECOMMENDED],
+   
     ['id' => '1', 'text' => TEXT_INFO_SORT_BY_PRODUCTS_NAME],
     ['id' => '2', 'text' => TEXT_INFO_SORT_BY_PRODUCTS_NAME_DESC],
     ['id' => '3', 'text' => TEXT_INFO_SORT_BY_PRODUCTS_PRICE],

@@ -12,7 +12,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: html_header.php for Bootstrap Template 2026-10-10 08:47:39Z webchills $
+ * @version $Id: html_header.php for Bootstrap Template 2026-10-11 08:47:39Z webchills $
  */
 
 if (!defined('IS_ADMIN_FLAG')) {
@@ -49,25 +49,9 @@ $preloads = [
         'link' => 'https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js',
         'integrity' => 'sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct',
         'type' => 'script',
-    ],
-    'fa' => [
-        'link' => 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css',
-        'integrity' => 'sha512-UuQ/zJlbMVAw/UU8vVBhnI4op+/tFOpQZVT+FormmIEhRSCnJWyHiBbEVgM4Uztsht41f3FzVWgLuwzUqOObKw==',
-        'type' => 'style',
-    ],
-    'fa-solid' => [
-        'link' => 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/solid.min.css',
-        'integrity' => 'sha512-Hp+WwK4QdKZk9/W0ViDvLunYjFrGJmNDt6sCflZNkjgvNq9mY+0tMbd6tWMiAlcf1OQyqL4gn2rYp7UsfssZPA==',
-        'type' => 'style',
-    ],
+    ],    
 ];
-if (!empty($zca_load_fa_brands)) {
-    $preloads['fa-brands'] = [
-        'link' => 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/brands.min.css',
-        'integrity' => 'sha512-DJLNx+VLY4aEiEQFjiawXaiceujj5GA7lIY8CHCIGQCBPfsEG0nGz1edb4Jvw1LR7q031zS5PpPqFuPA8ihlRA==',
-        'type' => 'style',
-    ];
- }
+
 ?>
 <?php
 

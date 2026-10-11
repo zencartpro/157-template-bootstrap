@@ -2,12 +2,12 @@
 /**
  * Bootstrap Template for Zen Cart German 1.5.7k
  * Zen Cart German Specific
- * Copyright 2018- 2023 rbarbour/lat9/drbyte/webchills
+ * Copyright 2018- 2026 rbarbour/lat9/drbyte/webchills
  * @copyright Copyright 2003-2026 Zen Cart Development Team
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: zca_bootstrap_common.php 2026-10-10 18:14:16Z webchills $
+ * @version $Id: zca_bootstrap_common.php 2026-10-11 18:14:16Z webchills $
  */
 // -----
 // Part of the Bootstrap template, defining commonly-used phrases and phrases unique to the bootstrap template.
@@ -114,4 +114,3 @@ define('TEXT_HEADER_ARIA_LABEL_LOGO', 'Site Logo');
 // store ... for accessibility.
 //
 define('HEADING_TITLE_SCREENREADER', 'See Additional Content Below');
-define('TEXT_INFO_SORT_BY_RECOMMENDED', 'Recommended');

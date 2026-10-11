@@ -24,7 +24,7 @@ Laden Sie nun den gesamten Inhalt des Ordners NEUE DATEIEN in der vorgegebenen S
 3)
 Im Ordner GEAENDERTE DATEIEN finden Sie eine aktualisierte includes/init_includes/init_templates.php
 Es ist sehr unwahrscheinlich, dass Sie in dieser Datei in Ihrem Shop bereits Änderungen vorgenommen haben.
-Sie können also die Datei mit der neuen ersetzen.
+Sie können also die Datei in Ihrem Shop mit der neuen ersetzen.
 Wenn Sie sicher gehen wollen, dass Sie wirklich keine alten Änderungen verlieren würden, vergleichen Sie die Datei mit BeyondCompare oder WinMerge und nehmen die Änderungen manuell vor.
 
 4)
@@ -39,9 +39,9 @@ Gehen Sie zu Tools > Boxlayout und stellen Sie die Sideboxen so ein, wie Sie es 
 
 7)
 Unter Konfiguration > Bootstrap Template Einstellungen können Sie diverse Dinge konfigurieren, alle Einstellungsmöglichkeiten sind dort erklärt.
-Falls Sie bereits das Modul Instant Search verwenden und das auch weiterverwenden wollen, aktivieren Sie die templateeigene Ajax Suche nicht.
+Falls Sie bereits das Modul Instant Search verwenden aktivieren Sie die templateeigene Ajax Suche nicht.
 Nur eine der beiden Ajax Suchen sollte im Shop aktiv sein.
-Um das Suchfeld im Header zu aktivieren, stellen Sie unter Tools > Boxlayout die search_header.php auf EIN und einzelne Spalte auf EIN
+Um das Suchfeld im Header zu aktivieren, stellen Sie unter Tools > Boxlayout die search_header.php auf Linke/Rechte Spalte Status: AUS und einzelne Spalte auf: EIN
 
 8)
 Unter Tools > Bootstrap Template Farbkonfiguration können Sie die Farben der verschiedenen Seitenelemente anpassen.
@@ -51,9 +51,18 @@ Oder um Ihre endgültige Testshop Farbkonfiguration später in Ihrem Liveshop ei
 
 9)
 Das Template hat einige Beispielinhaltsseiten mitgebracht für AGB, usw. 
-Das sind Beispiele für die Integration von Bildern auf diesen Seiten, die netweder links oder rechts am Text floaten.
+Das sind Beispiele für die Integration von Bildern auf diesen Seiten, die entweder links oder rechts am Text floaten.
 Ersetzen Sie die Beispieltexte mit denen aus Ihren bisherigen Seiten aus includes/languages/german/html_includes/DEINTEMPLATE
 
 10)
+Den Beispielslogan im Header können Sie auf Ihren eigenen ändern in:
+includes/languages/german/bootstrap/header.php
+includes/languages/english/bootstrap/header.php
+
+11)
+Eien Demo des Templates finden Sie hier:
+https://bootstrap.zencartdemo.at
+
+12)
 Eine umfangreiche Dokumentation (english) dieses Templates und seiner Einstellungsmöglichkeiten finden Sie hier:
 https://github.com/lat9/ZCA-Bootstrap-Template/wiki

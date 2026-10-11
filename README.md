@@ -1,8 +1,10 @@
 # 157-template-bootstrap
 Bootstrap Template für Zen Cart 1.5.7 deutsch
 
-Übersetzung/Anpassung des Bootstrap Templates von lat9/drbyte/scottcwilson/marco-pm/dbltoe/dennisns7d/brittainmark/torvista/proseLA/daphilli224/retched 
-für die deutsche Zen Cart Version 1.5.7k
+Übersetzung/Anpassung des Bootstrap Templates von rbarbour/lat9/drbyte für die deutsche Zen Cart Version 1.5.7k
+
+Demo des Templates:
+* https://bootstrap.zencartdemo.at
 
 Hinweis: 
 Freigegebene getestete Versionen für den Einsatz in Livesystemen ausschließlich unter Releases herunterladen:
@@ -23,3 +25,6 @@ Features:
 * Alle Seiten, auf denen Artikel aufgelistet sind (`advanced_search_results`, `featured_products`, `products_all`, `products_new` , `specials` und `index&cPath`) verwenden ein einheitliches Layout
 * diverse Slideshows möglich
 * Sliden der Artikel in den Sideboxen möglich
+
+Detaillierte Infos zur Konfiguration (english) hier:
+* https://github.com/lat9/ZCA-Bootstrap-Template/wiki

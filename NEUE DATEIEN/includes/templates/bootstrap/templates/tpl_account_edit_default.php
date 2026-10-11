@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_account_edit_default.php 2026-10-10 15:22:39Z webchills $
+ * @version $Id: tpl_account_edit_default.php 2026-10-11 15:22:39Z webchills $
  */
 ?>
 <div id="accountEditDefault" class="centerColumn">
@@ -54,6 +54,10 @@ if (zen_config('ACCOUNT_DOB') === 'true') {
 ?>
             <label class="inputLabel" for="email-address"><?= ENTRY_EMAIL_ADDRESS ?></label>
             <?= zen_draw_input_field('email_address', $account->fields['customers_email_address'], 'id="email-address" placeholder="' . ENTRY_EMAIL_ADDRESS_TEXT . '"'. ((int)zen_config('ENTRY_EMAIL_ADDRESS_MIN_LENGTH') > 0 ? ' required' : ''), 'email') ?>
+            <div class="p-2"></div>
+            
+             <label class="inputLabel" for="email-address-confirm"><?= ENTRY_EMAIL_ADDRESS_CONFIRM ?></label>
+            <?= zen_draw_input_field('email_address_confirm', $account->fields['customers_email_address'], 'id="email-address-confirm" placeholder="' . ENTRY_EMAIL_ADDRESS_TEXT . '"'. ((int)zen_config('ENTRY_EMAIL_ADDRESS_MIN_LENGTH') > 0 ? ' required' : ''), 'email') ?>
             <div class="p-2"></div>
 
             <label class="inputLabel" for="telephone"><?= ENTRY_TELEPHONE_NUMBER ?></label>

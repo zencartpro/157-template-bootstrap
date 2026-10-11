@@ -7,7 +7,7 @@
  * Zen Cart German Version - www.zen-cart-pro.at
  * @copyright Portions Copyright 2003 osCommerce
  * @license https://www.zen-cart-pro.at/license/3_0.txt GNU General Public License V3.0
- * @version $Id: tpl_modules_create_account.php 2026-10-10 17:22:39Z webchills $
+ * @version $Id: tpl_modules_create_account.php 2026-10-11 17:22:39Z webchills $
  */
 if ($messageStack->size('create_account') > 0) {
     echo $messageStack->output('create_account');
@@ -157,6 +157,10 @@ if (zen_config('ACCOUNT_DOB') === 'true') {
             <label class="inputLabel" for="email-address"><?= ENTRY_EMAIL_ADDRESS ?></label>
             <?= zen_draw_input_field('email_address', '', zen_set_field_length(TABLE_CUSTOMERS, 'customers_email_address', '40') . ' id="email-address" placeholder="' . ENTRY_EMAIL_ADDRESS_TEXT . '"' . ((int)zen_config('ENTRY_EMAIL_ADDRESS_MIN_LENGTH') > 0 ? ' required' : ''), 'email') ?>
             <div class="p-2"></div>
+            <label class="inputLabel" for="email-address-confirm"><?= ENTRY_EMAIL_ADDRESS_CONFIRM ?></label>
+            <?= zen_draw_input_field('email_address_confirm', '', zen_set_field_length(TABLE_CUSTOMERS, 'customers_email_address', '40') . ' id="email-address-confirm" placeholder="' . ENTRY_EMAIL_ADDRESS_TEXT . '"' . ((int)zen_config('ENTRY_EMAIL_ADDRESS_MIN_LENGTH') > 0 ? ' required' : ''), 'email') ?>
+            <div class="p-2"></div>
+
 <?php
 if ($display_nick_field === true) {
 ?>
